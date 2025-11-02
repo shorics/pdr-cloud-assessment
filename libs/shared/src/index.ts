@@ -1,1 +1,2 @@
-export * from './lib/shared';
+export { User, UserSchema } from './lib/schemas/user.schema';
+
