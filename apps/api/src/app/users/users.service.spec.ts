@@ -15,4 +15,10 @@ describe('UsersService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('getData', () => {
+    it('should return "Hello API"', () => {
+      expect(service.getData()).toEqual({ message: 'Hello API' });
+    });
+  });
 });
