@@ -1,2 +1,2 @@
-export { User, UserSchema } from './lib/schemas/user.schema';
+export { User, UserEdit, UserEditSchema } from './lib/schemas/user.schema';
 
