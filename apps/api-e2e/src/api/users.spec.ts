@@ -1,29 +1,14 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { UserEdit } from '@pdr-cloud-assessment/shared';
-import { UsersService } from './users.service';
+import axios from 'axios';
 
-describe('UsersService', () => {
-  let service: UsersService;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
-    }).compile();
-
-    service = module.get<UsersService>(UsersService);
-  });
-
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
-  describe('findAll', () => {
-    it('should return users array', () => {
+describe('users', () => {
+  describe('GET /users', () => {
+    it('should return users array', async () => {
       const page = 123;
 
-      const result = service.findAll(page);
+      const result = await axios.get('/users', { params: { page } });
 
-      expect(result).toEqual([{
+      expect(result.status).toBe(200);
+      expect(result.data).toEqual([{
         id: 123,
         firstName: 'firstName',
         lastName: 'lastName',
@@ -35,13 +20,14 @@ describe('UsersService', () => {
     });
   });
 
-  describe('find', () => {
-    it('should return user', () => {
+  describe('GET /users/:id', () => {
+    it('should return user', async () => {
       const id = 123;
 
-      const result = service.find(id);
+      const result = await axios.get(`/users/${id}`);
 
-      expect(result).toEqual({
+      expect(result.status).toBe(200);
+      expect(result.data).toEqual({
         id: 123,
         firstName: 'firstName',
         lastName: 'lastName',
@@ -53,9 +39,9 @@ describe('UsersService', () => {
     });
   });
 
-  describe('create', () => {
-    it('should create user', () => {
-      const user: UserEdit = {
+  describe('POST /users', () => {
+    it('should create user', async () => {
+      const user = {
         firstName: 'firstName',
         lastName: 'lastName',
         email: 'test@email.test',
@@ -64,9 +50,10 @@ describe('UsersService', () => {
         role: 'admin',
       };
 
-      const result = service.create(user);
+      const result = await axios.post('/users', user);
 
-      expect(result).toEqual({
+      expect(result.status).toBe(201);
+      expect(result.data).toEqual({
         id: 101,
         firstName: 'firstName',
         lastName: 'lastName',
@@ -78,10 +65,10 @@ describe('UsersService', () => {
     });
   });
 
-  describe('update', () => {
-    it('should update user', () => {
+  describe('PUT /users/:id', () => {
+    it('should return user', async () => {
       const id = 123;
-      const user: UserEdit = {
+      const user = {
         firstName: 'firstName',
         lastName: 'lastName',
         email: 'test@email.test',
@@ -90,9 +77,10 @@ describe('UsersService', () => {
         role: 'admin',
       };
 
-      const result = service.update(id, user);
+      const result = await axios.put(`/users/${id}`, user);
 
-      expect(result).toEqual({
+      expect(result.status).toBe(200);
+      expect(result.data).toEqual({
         id: 123,
         firstName: 'firstName',
         lastName: 'lastName',
@@ -104,13 +92,14 @@ describe('UsersService', () => {
     });
   });
 
-  describe('delete', () => {
-    it('should delete user', () => {
+  describe('DELETE /users/:id', () => {
+    it('should return user', async () => {
       const id = 123;
 
-      const result = service.delete(id);
+      const result = await axios.delete(`/users/${id}`);
 
-      expect(result).toBeUndefined();
+      expect(result.status).toBe(200);
+      expect(result.data).toEqual('');
     });
   });
 });
