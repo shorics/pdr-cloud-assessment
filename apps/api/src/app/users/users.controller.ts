@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { User, UserEdit } from '@pdr-cloud-assessment/shared';
 import { UsersService } from './users.service';
 
@@ -7,12 +7,12 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Get()
-  findAll(@Query('page') page: number): User[] {
+  findAll(@Query('page', ParseIntPipe) page: number): User[] {
     return this.service.findAll(page);
   }
 
   @Get(':id')
-  find(@Param('id') id: User['id']): User {
+  find(@Param('id', ParseIntPipe) id: User['id']): User {
     return this.service.find(id);
   }
 
@@ -22,12 +22,12 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(@Param('id') id: User['id'], @Body() user: UserEdit): User {
+  update(@Param('id', ParseIntPipe) id: User['id'], @Body() user: UserEdit): User {
     return this.service.update(id, user);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: User['id']): void {
+  delete(@Param('id', ParseIntPipe) id: User['id']): void {
     return this.service.delete(id);
   }
 }
