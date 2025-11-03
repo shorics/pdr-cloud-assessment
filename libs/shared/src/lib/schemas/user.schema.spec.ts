@@ -26,7 +26,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.firstName?.errors[0];
       }
 
-      expect(message).toEqual('users.error.firstName.string');
+      expect(message).toBe('users.error.firstName.string');
     });
   });
 
@@ -44,7 +44,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.firstName?.errors[0];
       }
 
-      expect(message).toEqual('users.error.firstName.required');
+      expect(message).toBe('users.error.firstName.required');
     });
   });
 
@@ -62,7 +62,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.lastName?.errors[0];
       }
 
-      expect(message).toEqual('users.error.lastName.string');
+      expect(message).toBe('users.error.lastName.string');
     });
   });
 
@@ -80,7 +80,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.lastName?.errors[0];
       }
 
-      expect(message).toEqual('users.error.lastName.required');
+      expect(message).toBe('users.error.lastName.required');
     });
   });
 
@@ -98,7 +98,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.email?.errors[0];
       }
 
-      expect(message).toEqual('users.error.email.format');
+      expect(message).toBe('users.error.email.format');
     });
   });
 
@@ -116,7 +116,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
       }
 
-      expect(message).toEqual('users.error.phoneNumber.string');
+      expect(message).toBe('users.error.phoneNumber.string');
     });
   });
 
@@ -134,7 +134,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
       }
 
-      expect(message).toEqual('users.error.phoneNumber.required');
+      expect(message).toBe('users.error.phoneNumber.required');
     });
   });
 
@@ -152,7 +152,7 @@ describe('user.schema', () => {
         message = treeifyError(result.error).properties?.birthDate?.errors[0];
       }
 
-      expect(message).toEqual('users.error.birthDate.format');
+      expect(message).toBe('users.error.birthDate.format');
     });
   });
 
@@ -165,11 +165,11 @@ describe('user.schema', () => {
 
       const result = UserEditSchema.safeParse(user);
 
-      expect(result.error?.issues.length).toEqual(2);
-      expect(result.error?.issues[0].path[0]).toEqual('phoneNumber');
-      expect(result.error?.issues[0].message).toEqual('users.error.phoneNumber.required');
-      expect(result.error?.issues[1].path[0]).toEqual('birthDate');
-      expect(result.error?.issues[1].message).toEqual('users.error.birthDate.required');
+      expect(result.error?.issues.length).toBe(2);
+      expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
+      expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
+      expect(result.error?.issues[1].path[0]).toBe('birthDate');
+      expect(result.error?.issues[1].message).toBe('users.error.birthDate.required');
     });
 
     describe('with phone number', () => {
@@ -181,9 +181,9 @@ describe('user.schema', () => {
 
         const result = UserEditSchema.safeParse(user);
 
-        expect(result.error?.issues.length).toEqual(1);
-        expect(result.error?.issues[0].path[0]).toEqual('birthDate');
-        expect(result.error?.issues[0].message).toEqual('users.error.birthDate.required');
+        expect(result.error?.issues.length).toBe(1);
+        expect(result.error?.issues[0].path[0]).toBe('birthDate');
+        expect(result.error?.issues[0].message).toBe('users.error.birthDate.required');
       });
 
       describe('with birth date', () => {
@@ -217,9 +217,9 @@ describe('user.schema', () => {
 
       const result = UserEditSchema.safeParse(user);
 
-      expect(result.error?.issues.length).toEqual(1);
-      expect(result.error?.issues[0].path[0]).toEqual('phoneNumber');
-      expect(result.error?.issues[0].message).toEqual('users.error.phoneNumber.required');
+      expect(result.error?.issues.length).toBe(1);
+      expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
+      expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
     });
 
     describe('with phone number', () => {
