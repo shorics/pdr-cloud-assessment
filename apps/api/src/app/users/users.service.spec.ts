@@ -17,15 +17,6 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('getData', () => {
-    it('should return "Hello API"', () => {
-
-      const result = service.getData();
-
-      expect(result).toEqual({ message: 'Hello API' });
-    });
-  });
-
   describe('findAll', () => {
     it('should return users array', () => {
       const page = 123;

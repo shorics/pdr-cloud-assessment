@@ -3,10 +3,6 @@ import { User, UserEdit } from '@pdr-cloud-assessment/shared';
 
 @Injectable()
 export class UsersService {
-  getData(): { message: string } {
-    return { message: 'Hello API' };
-  }
-
   findAll(page: number): User[] {
     return [
       this.find(page),
