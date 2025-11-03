@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { User, UserEdit } from '@pdr-cloud-assessment/shared';
 
+import { EntityNotFoundException } from './data.exceptions';
+
 type Dictionary<K extends string | number | symbol, V> = {
   [id in K]: V | undefined;
 };
@@ -20,10 +22,10 @@ export class DataUsersService {
       .map((o) => ({ ...o }));
   }
 
-  find(id: User['id']): User | undefined {
+  find(id: User['id']): User {
     const entity = this.data[id];
     if (undefined === entity) {
-      return undefined;
+      throw new EntityNotFoundException(id);
     }
 
     return { ...entity };
@@ -38,13 +40,15 @@ export class DataUsersService {
 
     this.data[id] = entity;
 
+    this.currentId++;
+
     return { ...entity };
   }
 
   update(id: User['id'], user: UserEdit): User {
     const entity = this.data[id];
     if (undefined === entity) {
-      throw new Error('Not found');
+      throw new EntityNotFoundException(id);
     }
 
     const updated = {
@@ -60,7 +64,7 @@ export class DataUsersService {
   delete(id: User['id']): void {
     const entity = this.data[id];
     if (undefined === entity) {
-      throw new Error('Not found');
+      throw new EntityNotFoundException(id);
     }
 
     delete this.data[id];
