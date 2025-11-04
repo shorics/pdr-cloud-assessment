@@ -6,11 +6,13 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { appRoutes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
     provideRouter(appRoutes),
+    provideZoneChangeDetection({ eventCoalescing: true }),
   ],
 };
