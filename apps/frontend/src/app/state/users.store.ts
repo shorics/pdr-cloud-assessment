@@ -23,8 +23,8 @@ export const UsersStore = signalStore(
     on(usersEvents.loadUsersSuccess, ({ payload: users }) => ({ users })),
   ),
   withEffects(
-    (store, events = inject(Events), service = inject(UsersService)) => ({
-      loadUsers: events
+    (_, events = inject(Events), service = inject(UsersService)) => ({
+      loadUsers$: events
         .on(usersEvents.loadUsers)
         .pipe(
           switchMap(() =>
