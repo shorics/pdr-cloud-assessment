@@ -31,12 +31,10 @@ describe('UsersService', () => {
 
   describe('#findAll', () => {
     it('should return users array', () => {
-      const page = 'fake-page' as unknown as number;
 
-      const result = service.findAll(page);
+      const result = service.findAll();
 
       expect(dataServiceMock.findAll).toHaveBeenCalledTimes(1);
-      expect(dataServiceMock.findAll).toHaveBeenCalledWith('fake-page');
       expect(result).toEqual('fake-users-list');
     });
   });
