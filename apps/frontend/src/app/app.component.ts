@@ -9,6 +9,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
+export class AppComponent {
   protected title = 'frontend';
 }
