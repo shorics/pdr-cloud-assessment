@@ -1,11 +1,14 @@
 import { Route } from '@angular/router';
-import { UsersService } from './services/users.service';
-import { UsersComponent } from './views/users/users.component';
+
+import { userListResolver } from './resolvers/load-user-list.resolver';
+import { UserService } from './services/user.service';
+import { UserListComponent } from './views/user-list/user-list.component';
 
 export const appRoutes: Route[] = [
   {
     path: '',
-    component: UsersComponent,
-    providers: [UsersService],
-  }
+    providers: [UserService],
+    resolve: { userListResolver },
+    component: UserListComponent,
+  },
 ];

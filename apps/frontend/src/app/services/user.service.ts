@@ -4,11 +4,11 @@ import { User, UserEdit } from '@pdr-cloud-assessment/shared';
 import { map, Observable } from 'rxjs';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   private readonly http = inject(HttpClient);
   private readonly API_URL = 'http://localhost:3000';
 
-  loadUsers(): Observable<User[]> {
+  loadUserList(): Observable<User[]> {
     return this.http.get<User[]>(`${this.API_URL}/users`);
   }
 
