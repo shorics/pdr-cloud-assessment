@@ -7,8 +7,8 @@ import { DataUsersService } from '../data/data-users.service';
 export class UsersService {
   constructor(private readonly service: DataUsersService) {}
 
-  findAll(page: number): User[] {
-    return this.service.findAll(page);
+  findAll(): User[] {
+    return this.service.findAll();
   }
 
   find(id: User['id']): User {

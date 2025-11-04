@@ -23,9 +23,8 @@ describe('DataUsersService', () => {
 
   describe('#findAll', () => {
     it('should return users array', () => {
-      const page = 1;
 
-      const result = service.findAll(page);
+      const result = service.findAll();
 
       expect(result).toEqual([{ id: 1, fake: 'user-1' }]);
     });
@@ -65,7 +64,7 @@ describe('DataUsersService', () => {
       const user = { fake: 'user-2' } as unknown as UserEdit;
 
       const resultEntity = service.create(user);
-      const resultData = service.findAll(1);
+      const resultData = service.findAll();
 
       expect(resultEntity).toEqual({ id: 2, fake: 'user-2' });
       expect(resultData).toEqual([
@@ -87,7 +86,7 @@ describe('DataUsersService', () => {
         const user = { fake: 'user-1-updated' } as unknown as UserEdit;
 
         const resultEntity = service.update(id, user);
-        const resultData = service.findAll(1);
+        const resultData = service.findAll();
 
         expect(resultEntity).toEqual({ id: 1, fake: 'user-1-updated' });
         expect(resultData).toEqual([{ id: 1, fake: 'user-1-updated' }]);
@@ -120,7 +119,7 @@ describe('DataUsersService', () => {
       it('should delete user', () => {
 
         service.delete(id);
-        const resultData = service.findAll(1);
+        const resultData = service.findAll();
 
         expect(resultData).toEqual([]);
       });

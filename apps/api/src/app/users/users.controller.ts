@@ -1,4 +1,4 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { User, UserEdit, UserEditSchema } from '@pdr-cloud-assessment/shared';
 
 import { EntityNotFoundException } from '../data/data.exceptions';
@@ -10,8 +10,8 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Get()
-  findAll(@Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number): User[] {
-    return this.service.findAll(page);
+  findAll(): User[] {
+    return this.service.findAll();
   }
 
   @Get(':id')

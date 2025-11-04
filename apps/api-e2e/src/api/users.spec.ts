@@ -16,9 +16,8 @@ describe('users', () => {
 
   describe('GET /users', () => {
     it('should return users array', async () => {
-      const page = 1;
 
-      const result = await axios.get('/users', { params: { page } });
+      const result = await axios.get('/users');
 
       expect(result.status).toBe(200);
       expect(result.data).toEqual([{

@@ -12,14 +12,8 @@ export class DataUsersService {
   private data: Dictionary<User['id'], User> = {};
   private currentId = 1;
 
-  findAll(page: number): User[] {
-    const size = 25;
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-
-    return Object.values(this.data)
-      .slice(startIndex, endIndex)
-      .map((o) => ({ ...o }));
+  findAll(): User[] {
+    return Object.values(this.data);
   }
 
   find(id: User['id']): User {
