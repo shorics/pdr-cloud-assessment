@@ -1,3 +1,12 @@
 import { Route } from '@angular/router';
 
-export const appRoutes: Route[] = [];
+import { UserService } from './services/user.service';
+import { UserListComponent } from './views/user-list/user-list.component';
+
+export const appRoutes: Route[] = [
+  {
+    path: '',
+    providers: [UserService],
+    component: UserListComponent,
+  },
+];
