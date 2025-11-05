@@ -1,4 +1,7 @@
+<app-user-table-filter
+  (filterChanged)="onFilterChange($event)"
+></app-user-table-filter>
 <app-user-table
-  [userList]="userList().data ?? []"
+  [userList]="userListFiltered() ?? []"
   (userSelected)="onUserSelect($event)"
 ></app-user-table>
