@@ -23,3 +23,7 @@
 - to comply with the requirements of the assesment
 - also it is possible with this solution to reduce the amount of the user model for the list and fetch the complete
   entity when the details are requested
+
+## Filter by indexOf() instead of Regex
+
+- string operations are faster
