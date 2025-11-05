@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { User } from '@pdr-cloud-assessment/shared';
 
 export interface UserDetailsDialogData {
@@ -10,10 +8,10 @@ export interface UserDetailsDialogData {
 };
 
 @Component({
-  selector: 'app-user-table',
+  selector: 'app-user-details-dialog',
   templateUrl: './user-details-dialog.html',
   styleUrl: './user-details-dialog.scss',
-  imports: [MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule],
+  imports: [MatButtonModule, MatDialogModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
