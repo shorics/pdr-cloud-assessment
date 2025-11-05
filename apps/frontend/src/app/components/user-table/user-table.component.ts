@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { User } from '@pdr-cloud-assessment/shared';
 
@@ -13,5 +13,11 @@ import { User } from '@pdr-cloud-assessment/shared';
 export class UserTableComponent {
   readonly userList = input.required<User[]>();
 
+  readonly userSelected = output<User['id']>();
+
   protected readonly displayedColumns: string[] = ['id', 'fullName', 'email', 'role'];
+
+  protected onRowClick(user: User): void {
+    this.userSelected.emit(user.id);
+  }
 }

@@ -1,2 +1,4 @@
-<app-user-table [userList]="userList().data ?? []"></app-user-table>
-<p>{{ user() | json }}</p>
+<app-user-table
+  [userList]="userList().data ?? []"
+  (userSelected)="onUserSelect($event)"
+></app-user-table>
