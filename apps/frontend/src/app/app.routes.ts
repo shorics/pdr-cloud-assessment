@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
 
 import { UserService } from './services/user.service';
-import { UserListComponent } from './views/user-list/user-list.component';
+import { UserList } from './views/user-list/user-list';
 
 export const appRoutes: Route[] = [
   {
     path: '',
     providers: [UserService],
-    component: UserListComponent,
+    component: UserList,
   },
 ];
