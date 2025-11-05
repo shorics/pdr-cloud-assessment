@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserTableFilter {
-
   readonly filterChanged = output<string | undefined>();
 
   protected onInput(value: string): void {

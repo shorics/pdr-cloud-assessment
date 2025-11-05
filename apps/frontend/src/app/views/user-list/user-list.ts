@@ -4,7 +4,7 @@ import { injectDispatch } from '@ngrx/signals/events';
 import { User } from '@pdr-cloud-assessment/shared';
 
 import { UserDetailsDialog, UserDetailsDialogData } from '../../components/user-details-dialog/user-details-dialog';
-import { UserTableFilter } from "../../components/user-table-filter/user-table-filter";
+import { UserTableFilter } from '../../components/user-table-filter/user-table-filter';
 import { UserTable } from '../../components/user-table/user-table';
 import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
