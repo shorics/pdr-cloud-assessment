@@ -8,5 +8,9 @@ export const userEvents = eventGroup({
     loadUserList: type<void>(),
     loadUserListSuccess: type<User[]>(),
     loadUserListFailure: type<string>(),
+
+    loadUser: type<User['id']>(),
+    loadUserSuccess: type<User>(),
+    loadUserFailure: type<string>(),
   },
 });
