@@ -2,6 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { injectDispatch } from '@ngrx/signals/events';
 
+import { UserTableComponent } from '../../components/user-table/user-table.component';
 import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
 
@@ -9,7 +10,7 @@ import { UserStore } from '../../state/user.store';
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  imports: [JsonPipe],
+  imports: [JsonPipe, UserTableComponent],
   providers: [UserStore],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,2 +1,2 @@
-<p>{{ userList() | json }}</p>
+<app-user-table [userList]="userList().data ?? []"></app-user-table>
 <p>{{ user() | json }}</p>
