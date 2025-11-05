@@ -1,7 +1,19 @@
-<app-user-table-filter
-  (filterChanged)="onFilterChange($event)"
-></app-user-table-filter>
+<div class="toolbar">
+  <app-user-table-filter
+    (filterChanged)="onFilterChange($event)"
+  ></app-user-table-filter>
+
+  <mat-paginator
+    #paginator
+    [length]="userListFiltered()?.length"
+    [pageSize]="PAGE_SIZE"
+    [pageIndex]="pageIndex()"
+    [hidePageSize]="true"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>
 <app-user-table
-  [userList]="userListFiltered() ?? []"
+  [userList]="userListFilteredPaginated() ?? []"
   (userSelected)="onUserSelect($event)"
 ></app-user-table>
