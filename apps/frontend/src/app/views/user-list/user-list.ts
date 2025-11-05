@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { injectDispatch } from '@ngrx/signals/events';
 import { User } from '@pdr-cloud-assessment/shared';
 
-import { UserDetailDialog, UserDetailDialogData } from '../../components/user-detail-dialog/user-detail-dialog';
+import { UserDetailsDialog, UserDetailsDialogData } from '../../components/user-details-dialog/user-details-dialog';
 import { UserTable } from '../../components/user-table/user-table';
 import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
@@ -30,8 +30,8 @@ export class UserList {
 
     effect(() => {
       if (this.user().data) {
-        this.dialog.open(UserDetailDialog, {
-            data: { user: this.user().data } as UserDetailDialogData,
+        this.dialog.open(UserDetailsDialog, {
+            data: { user: this.user().data } as UserDetailsDialogData,
         });
       }
     });
