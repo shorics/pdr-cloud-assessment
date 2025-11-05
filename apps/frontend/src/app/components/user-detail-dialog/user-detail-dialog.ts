@@ -11,14 +11,14 @@ export interface UserDetailDialogData {
 
 @Component({
   selector: 'app-user-table',
-  templateUrl: './user-detail-dialog.component.html',
-  styleUrl: './user-detail-dialog.component.scss',
+  templateUrl: './user-detail-dialog.html',
+  styleUrl: './user-detail-dialog.scss',
   imports: [MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailDialogComponent {
-  private readonly dialogRef = inject(MatDialogRef<UserDetailDialogComponent>);
+export class UserDetailDialog {
+  private readonly dialogRef = inject(MatDialogRef<UserDetailDialog>);
   private readonly data = inject<UserDetailDialogData>(MAT_DIALOG_DATA);
 
   protected readonly user = signal(this.data.user);

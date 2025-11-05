@@ -3,21 +3,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { injectDispatch } from '@ngrx/signals/events';
 import { User } from '@pdr-cloud-assessment/shared';
 
-import { UserDetailDialogComponent, UserDetailDialogData } from '../../components/user-detail-dialog/user-detail-dialog.component';
-import { UserTableComponent } from '../../components/user-table/user-table.component';
+import { UserDetailDialog, UserDetailDialogData } from '../../components/user-detail-dialog/user-detail-dialog';
+import { UserTable } from '../../components/user-table/user-table';
 import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
 
 @Component({
   selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.scss',
-  imports: [UserTableComponent],
+  templateUrl: './user-list.html',
+  styleUrl: './user-list.scss',
+  imports: [UserTable],
   providers: [UserStore],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserListComponent {
+export class UserList {
   private readonly dialog = inject(MatDialog);
   private readonly dispatch = injectDispatch(userEvents);
   private readonly store = inject(UserStore);
@@ -30,7 +30,7 @@ export class UserListComponent {
 
     effect(() => {
       if (this.user().data) {
-        this.dialog.open(UserDetailDialogComponent, {
+        this.dialog.open(UserDetailDialog, {
             data: { user: this.user().data } as UserDetailDialogData,
         });
       }

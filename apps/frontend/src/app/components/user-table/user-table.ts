@@ -4,13 +4,13 @@ import { User } from '@pdr-cloud-assessment/shared';
 
 @Component({
   selector: 'app-user-table',
-  templateUrl: './user-table.component.html',
-  styleUrl: './user-table.component.scss',
+  templateUrl: './user-table.html',
+  styleUrl: './user-table.scss',
   imports: [MatTableModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTableComponent {
+export class UserTable {
   readonly userList = input.required<User[]>();
 
   readonly userSelected = output<User['id']>();
