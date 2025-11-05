@@ -1,6 +1,8 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
+import { injectDispatch } from '@ngrx/signals/events';
+import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
 
 @Component({
@@ -13,7 +15,12 @@ import { UserStore } from '../../state/user.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
+  private readonly dispatch = injectDispatch(userEvents);
   private readonly store = inject(UserStore);
 
   protected userList = this.store.userList;
+
+  constructor() {
+    this.dispatch.loadUserList();
+  }
 }
