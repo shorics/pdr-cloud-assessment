@@ -23,10 +23,10 @@ export class UserList {
   private readonly dispatch = injectDispatch(userEvents);
   private readonly store = inject(UserStore);
 
-  protected filter = signal<string | undefined>(undefined);
-  protected user = this.store.user;
-  protected userList = this.store.userList;
-  protected userListFiltered = computed(
+  protected readonly filter = signal<string | undefined>(undefined);
+  protected readonly user = this.store.user;
+  protected readonly userList = this.store.userList;
+  protected readonly userListFiltered = computed(
     () => this.filterUserList(this.userList().data, this.filter())
   );
 
