@@ -3,6 +3,8 @@
     (filterChanged)="onFilterChange($event)"
   ></app-user-table-filter>
 
+  <button matButton="filled" (click)="onUserCreateClick()">create user</button>
+
   <mat-paginator
     #paginator
     [length]="userListFiltered()?.length"

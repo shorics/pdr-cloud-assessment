@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Create User</h2>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="form">
+    <mat-form-field>
+      <mat-label>firstName</mat-label>
+      <input matInput [formControl]="userForm.controls.firstName" />
+
+      <mat-error>
+        {{ userForm.controls.firstName.errors?.['zodError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>lastName</mat-label>
+      <input matInput [formControl]="userForm.controls.lastName" />
+
+      <mat-error>
+        {{ userForm.controls.lastName.errors?.['zodError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input matInput [formControl]="userForm.controls.email" />
+
+      <mat-error>
+        {{ userForm.controls.email.errors?.['zodError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>phoneNumber</mat-label>
+      <input matInput [formControl]="userForm.controls.phoneNumber" />
+
+      <mat-error>
+        {{ userForm.controls.phoneNumber.errors?.['zodError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>birthDate</mat-label>
+      <input matInput [formControl]="userForm.controls.birthDate" />
+
+      <mat-hint>YYYY-MM-DD</mat-hint>
+
+      <mat-error>
+        {{ userForm.controls.birthDate.errors?.['zodError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>role</mat-label>
+      <mat-select [formControl]="userForm.controls.role">
+        <mat-option value="admin">admin</mat-option>
+        <mat-option value="editor">editor</mat-option>
+        <mat-option value="viewer">viewer</mat-option>
+      </mat-select>
+
+      <mat-error> {{ userForm.controls.role.errors?.['zodError'] }} </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button matButton type="button" (click)="onCloseClick()">cancel</button>
+    <button matButton="filled" type="submit">save</button>
+  </mat-dialog-actions>
+</form>

@@ -1,15 +1,24 @@
-import { discriminatedUnion, email, iso, literal, object, string, infer as zInfer } from 'zod';
+import { discriminatedUnion, email, iso, literal, object, preprocess, string, infer as zInfer } from 'zod';
+
+const emptyStringToUndefined = (value: unknown) => '' === value ? undefined : value;
 
 const BaseUserSchema = object({
+  // id: number().int().positive(),
   firstName: string('users.error.firstName.string').trim()
-    .min(1, 'users.error.firstName.required'),
+    .nonempty('users.error.firstName.required'),
   lastName: string('users.error.lastName.string').trim()
-    .min(1, 'users.error.lastName.required'),
+    .nonempty('users.error.lastName.required'),
   email:email('users.error.email.format'),
-  phoneNumber: string('users.error.phoneNumber.string').trim()
-    .min(1, 'users.error.phoneNumber.required')
-    .optional(),
-  birthDate: iso.date('users.error.birthDate.format').optional(),
+  phoneNumber: preprocess(
+    emptyStringToUndefined,
+    string('users.error.phoneNumber.string').trim()
+      .nonempty('users.error.phoneNumber.required')
+      .optional()
+    ),
+  birthDate: preprocess(
+    emptyStringToUndefined,
+    iso.date('users.error.birthDate.format').optional(),
+  ),
 });
 
 const AdminUserSchema = object({
@@ -31,8 +40,15 @@ export const UserEditSchema = discriminatedUnion('role', [
   AdminUserSchema,
   EditorUserSchema,
   ViewerUserSchema,
-])
-.and(BaseUserSchema);
+]).and(BaseUserSchema)
+  .transform((o) => {
+    return {
+      ...o,
+      phoneNumber: emptyStringToUndefined(o.phoneNumber),
+      birthDate: emptyStringToUndefined(o.birthDate),
+    }
+  });
+
 
 export type UserEdit = zInfer<typeof UserEditSchema>;
 export type User = UserEdit & { id: number };
