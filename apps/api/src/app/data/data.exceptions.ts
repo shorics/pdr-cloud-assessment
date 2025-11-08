@@ -12,3 +12,25 @@ export class EntityNotFoundException extends BaseException {
     this.id = id;
   }
 };
+
+export class JsonParseInvalidException extends BaseException {
+  readonly file: string;
+  readonly name = JsonParseInvalidException.name;
+
+  constructor(file: string) {
+    super(`File "${file}" is not valid JSON`);
+
+    this.file = file;
+  }
+};
+
+export class JsonParseNotAnArrayException extends BaseException {
+  readonly file: string;
+  readonly name = JsonParseNotAnArrayException.name;
+
+  constructor(file: string) {
+    super(`File "${file}" does not contain a JSON array`);
+
+    this.file = file;
+  }
+};

@@ -1,5 +1,6 @@
 import { User, UserSchema } from '@pdr-cloud-assessment/shared';
 import { readFile, writeFile } from 'fs/promises';
+import { JsonParseInvalidException, JsonParseNotAnArrayException } from './data.exceptions';
 
 interface LoadResult {
   userList: User[],
@@ -9,10 +10,16 @@ interface LoadResult {
 export const loadUsersFile = async (file: string): Promise<LoadResult> => {
   return readFile(file).then((buffer) => {
       const data = buffer.toString();
-      const json = JSON.parse(data);
+      let json: unknown;
+
+      try {
+        json = JSON.parse(data);
+      } catch {
+        throw new JsonParseInvalidException(file)
+      }
 
       if (!Array.isArray(json)) {
-        throw Error('Source is not a JSON array');
+        throw new JsonParseNotAnArrayException(file);
       }
 
       const userList: User[] = [];
