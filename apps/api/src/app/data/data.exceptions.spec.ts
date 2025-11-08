@@ -1,4 +1,4 @@
-import { BaseException, EntityNotFoundException } from './data.exceptions';
+import { BaseException, EntityNotFoundException, JsonParseInvalidException, JsonParseNotAnArrayException } from './data.exceptions';
 
 describe('data exceptions', () => {
   describe('BaseException', () => {
@@ -39,6 +39,52 @@ describe('data exceptions', () => {
     it('should set name', () => {
 
       expect(exception.name).toBe('EntityNotFoundException');
+    });
+  });
+
+  describe('JsonParseInvalidException', () => {
+    let exception: JsonParseInvalidException;
+
+    beforeEach(() => {
+      exception = new JsonParseInvalidException('test-file');
+    });
+
+    it('should set file', () => {
+
+      expect(exception.file).toBe('test-file');
+    });
+
+    it('should set message', () => {
+
+      expect(exception.message).toBe('File "test-file" is not valid JSON');
+    });
+
+    it('should set name', () => {
+
+      expect(exception.name).toBe('JsonParseInvalidException');
+    });
+  });
+
+  describe('JsonParseNotAnArrayException', () => {
+    let exception: JsonParseNotAnArrayException;
+
+    beforeEach(() => {
+      exception = new JsonParseNotAnArrayException('test-file');
+    });
+
+    it('should set file', () => {
+
+      expect(exception.file).toBe('test-file');
+    });
+
+    it('should set message', () => {
+
+      expect(exception.message).toBe('File "test-file" does not contain a JSON array');
+    });
+
+    it('should set name', () => {
+
+      expect(exception.name).toBe('JsonParseNotAnArrayException');
     });
   });
 });

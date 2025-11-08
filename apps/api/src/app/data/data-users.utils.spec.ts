@@ -3,6 +3,7 @@ import { readFile as _readFile, writeFile as _writeFile } from 'fs/promises';
 import { Volume } from 'memfs';
 
 import { loadUsersFile, saveJsonFile } from './data-users.utils';
+import { JsonParseInvalidException, JsonParseNotAnArrayException } from './data.exceptions';
 
 jest.mock('@pdr-cloud-assessment/shared', () => ({
   UserSchema:{
@@ -26,6 +27,8 @@ describe('data users utils', () => {
   beforeEach(() => {
     fs = Volume.fromJSON({
       '/fake-source': `["fake-user-1", "fake-user-2"]`,
+      '/fake-source-invalid': 'fake-invalid',
+      '/fake-source-not-array': '{}',
     });
 
     readFileMock.mockImplementation((file: string) => Promise.resolve(fs.readFileSync(file)));
@@ -45,16 +48,50 @@ describe('data users utils', () => {
   });
 
   describe('loadUsersFile', () => {
-    it('should read JSON file', async () => {
+    let sourceFile: string;
 
-      const result = await loadUsersFile('/fake-source');
+    describe('with source JSON array', () => {
+      beforeEach(() => {
+        sourceFile = '/fake-source';
+      });
 
-      expect(result.userList).toEqual(['fake-user-parsed']);
-      expect(result.unparsableList).toEqual(['fake-user-2']);
+      it('should read JSON file', async () => {
 
-      expect(UserSchemaSafeParseMock).toHaveBeenCalledTimes(2);
-      expect(UserSchemaSafeParseMock).toHaveBeenNthCalledWith(1, 'fake-user-1');
-      expect(UserSchemaSafeParseMock).toHaveBeenNthCalledWith(2, 'fake-user-2');
+        const result = await loadUsersFile(sourceFile);
+
+        expect(result.userList).toEqual(['fake-user-parsed']);
+        expect(result.unparsableList).toEqual(['fake-user-2']);
+
+        expect(UserSchemaSafeParseMock).toHaveBeenCalledTimes(2);
+        expect(UserSchemaSafeParseMock).toHaveBeenNthCalledWith(1, 'fake-user-1');
+        expect(UserSchemaSafeParseMock).toHaveBeenNthCalledWith(2, 'fake-user-2');
+      });
+    });
+
+    describe('with source not valid JSON', () => {
+      beforeEach(() => {
+        sourceFile = '/fake-source-invalid';
+      });
+
+      it('should throw "JSON is not valid"', () => {
+
+        const result = () => loadUsersFile(sourceFile);
+
+        expect(result).rejects.toThrow(JsonParseInvalidException);
+      });
+    });
+
+    describe('with source not JSON array', () => {
+      beforeEach(() => {
+        sourceFile = '/fake-source-not-array';
+      });
+
+      it('should throw "not a JSON array"', () => {
+
+        const result = () => loadUsersFile(sourceFile);
+
+        expect(result).rejects.toThrow(JsonParseNotAnArrayException);
+      });
     });
   });
 
@@ -75,7 +112,7 @@ describe('data users utils', () => {
 
       expect(JSON.stringify).toHaveBeenCalledTimes(1);
       expect(JSON.stringify).toHaveBeenCalledWith({ fake: 'data' });
-      expect(fs.toJSON()).toEqual(expect.objectContaining({ '/fake-path': 'fake-json' }));
+      expect(fs.toJSON()['/fake-path']).toBe('fake-json');
     });
   });
 });
