@@ -3,7 +3,7 @@ import { mapResponse } from '@ngrx/operators';
 import { signalStore, withState } from '@ngrx/signals';
 import { Events, on, withEffects, withReducer } from '@ngrx/signals/events';
 import { User } from '@pdr-cloud-assessment/shared';
-import { switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 import { LoadingState } from '../enums/loading-state.enum';
 import { Loadable } from '../interfaces/loadable.interface';
@@ -13,11 +13,13 @@ import { userEvents } from './user.events';
 export type UserState = {
   user: Loadable<User>;
   userList: Loadable<User[]>;
+  userCreate: Loadable<User>;
 };
 
 export const initialState: UserState = {
   user: { state: LoadingState.Initial, data: undefined },
   userList: { state: LoadingState.Initial, data: [] },
+  userCreate: { state: LoadingState.Initial, data: undefined },
 };
 
 export const UserStore = signalStore(
@@ -30,6 +32,10 @@ export const UserStore = signalStore(
     on(userEvents.loadUserList, (_, state) => ({ userList: { ...state.userList, state: LoadingState.Loading } })),
     on(userEvents.loadUserListSuccess, ({ payload: userList }) => ({ userList: { state: LoadingState.Done, data: userList } })),
     on(userEvents.loadUserListFailure, ({ payload: error }) => ({ userList: { state: LoadingState.Error, data: undefined, error } })),
+
+    on(userEvents.createUser, () => ({ userCreate: { state: LoadingState.Loading, data: undefined } })),
+    on(userEvents.createUserSuccess, ({ payload: user }) => ({ userCreate: { state: LoadingState.Done, data: user } })),
+    on(userEvents.createUserFailure, ({ payload: error }) => ({ userCreate: { state: LoadingState.Error, data: undefined, error } })),
   ),
   withEffects(
     (_, events = inject(Events), service = inject(UserService)) => ({
@@ -57,6 +63,25 @@ export const UserStore = signalStore(
               }),
             ),
           ),
+        ),
+
+      createUser$: events
+        .on(userEvents.createUser)
+        .pipe(
+          switchMap(({ payload: user }) =>
+            service.createUser(user).pipe(
+              mapResponse({
+                next: (user) => userEvents.createUserSuccess(user),
+                error: (error: { message: string }) => userEvents.createUserFailure(error.message),
+              }),
+            ),
+          ),
+        ),
+
+      createUserSuccess$: events
+        .on(userEvents.createUserSuccess)
+        .pipe(
+          map(() => userEvents.loadUserList()),
         ),
     }),
   ),
