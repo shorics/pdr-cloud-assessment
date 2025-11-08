@@ -10,40 +10,40 @@ export class UsersController {
   constructor(private readonly service: UsersService) {}
 
   @Get()
-  findAll(): User[] {
-    return this.service.findAll();
+  async findAll(): Promise<User[]> {
+    return await this.service.findAll();
   }
 
   @Get(':id')
-  find(@Param('id', ParseIntPipe) id: User['id']): User {
+  async find(@Param('id', ParseIntPipe) id: User['id']): Promise<User> {
     try {
-      return this.service.find(id);
+      return await this.service.find(id);
     } catch (e) {
       this.handleException(e);
     }
   }
 
   @Post()
-  create(@Body(new ZodValidationPipe(UserEditSchema)) user: UserEdit): User {
+  async create(@Body(new ZodValidationPipe(UserEditSchema)) user: UserEdit): Promise<User> {
     return this.service.create(user);
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: User['id'],
     @Body(new ZodValidationPipe(UserEditSchema)) user: UserEdit
-  ): User {
+  ): Promise<User> {
     try {
-      return this.service.update(id, user);
+      return await this.service.update(id, user);
     } catch (e) {
       this.handleException(e);
     }
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: User['id']): void {
+  async delete(@Param('id', ParseIntPipe) id: User['id']): Promise<void> {
     try {
-      this.service.delete(id);
+      return await this.service.delete(id);
     } catch (e) {
       this.handleException(e);
     }

@@ -15,10 +15,10 @@ describe('UsersService', () => {
         {
           provide: DataUsersService,
           useValue: {
-            findAll: jest.fn().mockReturnValue('fake-users-list'),
-            find: jest.fn().mockReturnValue('fake-user-find'),
-            create: jest.fn().mockReturnValue('fake-user-create'),
-            update: jest.fn().mockReturnValue('fake-user-update'),
+            findAll: jest.fn().mockResolvedValue('fake-users-list'),
+            find: jest.fn().mockResolvedValue('fake-user-find'),
+            create: jest.fn().mockResolvedValue('fake-user-create'),
+            update: jest.fn().mockResolvedValue('fake-user-update'),
             delete: jest.fn(),
           },
         }
@@ -30,9 +30,9 @@ describe('UsersService', () => {
   });
 
   describe('#findAll', () => {
-    it('should return users array', () => {
+    it('should return users array', async () => {
 
-      const result = service.findAll();
+      const result = await service.findAll();
 
       expect(dataServiceMock.findAll).toHaveBeenCalledTimes(1);
       expect(result).toEqual('fake-users-list');
@@ -40,10 +40,10 @@ describe('UsersService', () => {
   });
 
   describe('#find', () => {
-    it('should return user', () => {
+    it('should return user',async  () => {
       const id = 'fake-id' as unknown as number;
 
-      const result = service.find(id);
+      const result = await service.find(id);
 
       expect(dataServiceMock.find).toHaveBeenCalledTimes(1);
       expect(dataServiceMock.find).toHaveBeenCalledWith('fake-id');
@@ -52,10 +52,10 @@ describe('UsersService', () => {
   });
 
   describe('#create', () => {
-    it('should create user', () => {
+    it('should create user', async () => {
       const user = 'fake-user' as unknown as UserEdit;
 
-      const result = service.create(user);
+      const result = await service.create(user);
 
       expect(dataServiceMock.create).toHaveBeenCalledTimes(1);
       expect(dataServiceMock.create).toHaveBeenCalledWith('fake-user');
@@ -64,11 +64,11 @@ describe('UsersService', () => {
   });
 
   describe('#update', () => {
-    it('should update user', () => {
+    it('should update user', async () => {
       const id = 'fake-id' as unknown as number;
       const user = 'fake-user' as unknown as UserEdit;
 
-      const result = service.update(id, user);
+      const result = await service.update(id, user);
 
       expect(dataServiceMock.update).toHaveBeenCalledTimes(1);
       expect(dataServiceMock.update).toHaveBeenCalledWith('fake-id', 'fake-user');
@@ -77,10 +77,10 @@ describe('UsersService', () => {
   });
 
   describe('#delete', () => {
-    it('should delete user', () => {
+    it('should delete user', async () => {
       const id = 'fake-id' as unknown as number;
 
-      service.delete(id);
+      await service.delete(id);
 
       expect(dataServiceMock.delete).toHaveBeenCalledTimes(1);
       expect(dataServiceMock.delete).toHaveBeenCalledWith('fake-id');

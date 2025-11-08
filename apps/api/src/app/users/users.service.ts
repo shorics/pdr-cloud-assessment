@@ -7,23 +7,23 @@ import { DataUsersService } from '../data/data-users.service';
 export class UsersService {
   constructor(private readonly service: DataUsersService) {}
 
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     return this.service.findAll();
   }
 
-  find(id: User['id']): User {
+  async find(id: User['id']): Promise<User> {
     return this.service.find(id);
   }
 
-  create(user: UserEdit): User {
+  async create(user: UserEdit): Promise<User> {
     return this.service.create(user);
   }
 
-  update(id: User['id'], user: UserEdit): User {
+  async update(id: User['id'], user: UserEdit): Promise<User> {
     return this.service.update(id, user);
   }
 
-  delete(id: User['id']): void {
-    this.service.delete(id);
+  async delete(id: User['id']): Promise<void> {
+    return this.service.delete(id);
   }
 }
