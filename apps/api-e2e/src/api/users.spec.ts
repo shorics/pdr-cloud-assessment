@@ -20,33 +20,53 @@ describe('users', () => {
       const result = await axios.get('/users');
 
       expect(result.status).toBe(200);
-      expect(result.data).toEqual([{
-        id: 1,
+      expect(result.data).toEqual(expect.arrayContaining([{
+        id: 101,
         firstName: 'test-first-name-1',
         lastName: 'test-last-name-1',
         email: 'test-1@email.test',
         phoneNumber: 'test-phone-number-1',
         birthDate: '2025-12-24',
         role: 'admin',
-      }]);
+      }]));
     });
   });
 
   describe('GET /users/:id', () => {
-    it('should return user', async () => {
-      const id = 1;
+    let id: number;
 
-      const result = await axios.get(`/users/${id}`);
+    describe('with existing user', () => {
+      beforeEach(() => {
+        id = 101;
+      });
 
-      expect(result.status).toBe(200);
-      expect(result.data).toEqual({
-        id: 1,
-        firstName: 'test-first-name-1',
-        lastName: 'test-last-name-1',
-        email: 'test-1@email.test',
-        phoneNumber: 'test-phone-number-1',
-        birthDate: '2025-12-24',
-        role: 'admin',
+      it('should return user', async () => {
+
+        const result = await axios.get(`/users/${id}`);
+
+        expect(result.status).toBe(200);
+        expect(result.data).toEqual({
+          id: 101,
+          firstName: 'test-first-name-1',
+          lastName: 'test-last-name-1',
+          email: 'test-1@email.test',
+          phoneNumber: 'test-phone-number-1',
+          birthDate: '2025-12-24',
+          role: 'admin',
+        });
+      });
+    });
+
+    describe('with non-existent user', () => {
+      beforeEach(() => {
+        id = 9999;
+      });
+
+      it('should return 404', async () => {
+
+        const result = await axios.get(`/users/${id}`, { validateStatus: () => true });
+
+        expect(result.status).toBe(404);
       });
     });
   });
@@ -62,11 +82,12 @@ describe('users', () => {
         role: 'viewer',
       };
 
-      const result = await axios.post('/users', user);
+      const postResult = await axios.post('/users', user);
+      const getAllResult = await axios.get('/users');
 
-      expect(result.status).toBe(201);
-      expect(result.data).toEqual({
-        id: 2,
+      expect(postResult.status).toBe(201);
+      expect(postResult.data).toEqual({
+        id: 102,
         firstName: 'test-first-name-2',
         lastName: 'test-last-name-2',
         email: 'test-2@email.test',
@@ -74,44 +95,135 @@ describe('users', () => {
         birthDate: '2025-01-01',
         role: 'viewer',
       });
+      expect(getAllResult.status).toBe(200);
+      expect(getAllResult.data).toEqual(expect.arrayContaining([
+        {
+          id: 101,
+          firstName: 'test-first-name-1',
+          lastName: 'test-last-name-1',
+          email: 'test-1@email.test',
+          phoneNumber: 'test-phone-number-1',
+          birthDate: '2025-12-24',
+          role: 'admin',
+        },
+        {
+          id: 102,
+          firstName: 'test-first-name-2',
+          lastName: 'test-last-name-2',
+          email: 'test-2@email.test',
+          phoneNumber: 'test-phone-number-2',
+          birthDate: '2025-01-01',
+          role: 'viewer',
+        }
+      ]));
     });
   });
 
   describe('PUT /users/:id', () => {
-    it('should update user', async () => {
-      const id = 1;
-      const user = {
-        firstName: 'test-first-name-1-updated',
-        lastName: 'test-last-name-1-updated',
-        email: 'test-1-updated@email.test',
-        phoneNumber: 'test-phone-number-1-updated',
-        birthDate: '2025-06-06',
-        role: 'editor',
-      };
+    let id: number;
 
-      const result = await axios.put(`/users/${id}`, user);
+    describe('with existing user', () => {
+      beforeEach(() => {
+        id = 101;
+      });
 
-      expect(result.status).toBe(200);
-      expect(result.data).toEqual({
-        id: 1,
-        firstName: 'test-first-name-1-updated',
-        lastName: 'test-last-name-1-updated',
-        email: 'test-1-updated@email.test',
-        phoneNumber: 'test-phone-number-1-updated',
-        birthDate: '2025-06-06',
-        role: 'editor',
+      it('should update user', async () => {
+        const user = {
+          firstName: 'test-first-name-1-updated',
+          lastName: 'test-last-name-1-updated',
+          email: 'test-1-updated@email.test',
+          phoneNumber: 'test-phone-number-1-updated',
+          birthDate: '2025-06-06',
+          role: 'editor',
+        };
+
+        const putResult = await axios.put(`/users/${id}`, user);
+        const getAllResult = await axios.get('/users');
+
+        expect(putResult.status).toBe(200);
+        expect(putResult.data).toEqual({
+          id: 101,
+          firstName: 'test-first-name-1-updated',
+          lastName: 'test-last-name-1-updated',
+          email: 'test-1-updated@email.test',
+          phoneNumber: 'test-phone-number-1-updated',
+          birthDate: '2025-06-06',
+          role: 'editor',
+        });
+        expect(getAllResult.status).toBe(200);
+        expect(getAllResult.data).toEqual(expect.arrayContaining([{
+          id: 101,
+          firstName: 'test-first-name-1-updated',
+          lastName: 'test-last-name-1-updated',
+          email: 'test-1-updated@email.test',
+          phoneNumber: 'test-phone-number-1-updated',
+          birthDate: '2025-06-06',
+          role: 'editor',
+        }]));
+      });
+    });
+
+    describe('with non-existent user', () => {
+      beforeEach(() => {
+        id = 9999;
+      });
+
+      it('should return 404', async () => {
+        const user = {
+          firstName: 'test-first-name-1-updated',
+          lastName: 'test-last-name-1-updated',
+          email: 'test-1-updated@email.test',
+          phoneNumber: 'test-phone-number-1-updated',
+          birthDate: '2025-06-06',
+          role: 'editor',
+        };
+
+        const result = await axios.put(`/users/${id}`, user, { validateStatus: () => true });
+
+        expect(result.status).toBe(404);
       });
     });
   });
 
   describe('DELETE /users/:id', () => {
-    it('should delete user', async () => {
-      const id = 1;
+    let id: number;
 
-      const result = await axios.delete(`/users/${id}`);
+    describe('with existing user', () => {
+      beforeEach(() => {
+        id = 101;
+      });
 
-      expect(result.status).toBe(200);
-      expect(result.data).toEqual('');
+      it('should delete user', async () => {
+
+        const deleteResult = await axios.delete(`/users/${id}`);
+        const getAllResult = await axios.get('/users');
+
+        expect(deleteResult.status).toBe(200);
+        expect(deleteResult.data).toEqual('');
+        expect(getAllResult.status).toBe(200);
+        expect(getAllResult.data).toEqual(expect.not.arrayContaining([{
+          id: 101,
+          firstName: 'test-first-name-1',
+          lastName: 'test-last-name-1',
+          email: 'test-1@email.test',
+          phoneNumber: 'test-phone-number-1',
+          birthDate: '2025-12-24',
+          role: 'admin',
+        }]));
+      });
+    });
+
+    describe('with non-existent user', () => {
+      beforeEach(() => {
+        id = 9999;
+      });
+
+      it('should return 404', async () => {
+
+        const result = await axios.delete(`/users/${id}`, { validateStatus: () => true });
+
+        expect(result.status).toBe(404);
+      });
     });
   });
 });

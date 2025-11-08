@@ -14,7 +14,7 @@ import { LoadingState } from '../../enums/loading-state.enum';
 import { userEvents } from '../../state/user.events';
 import { UserStore } from '../../state/user.store';
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 25;
 
 @Component({
   selector: 'app-user-list',

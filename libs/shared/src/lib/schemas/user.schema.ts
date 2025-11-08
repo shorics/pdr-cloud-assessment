@@ -1,14 +1,23 @@
-import { discriminatedUnion, email, iso, literal, object, preprocess, string, infer as zInfer } from 'zod';
+import { discriminatedUnion, email, iso, literal, number, object, preprocess, string, infer as zInfer } from 'zod';
 
-const emptyStringToUndefined = (value: unknown) => '' === value ? undefined : value;
+const emptyStringToUndefined = (value: string | undefined): string | undefined => '' === value ? undefined : value;
+const nullishToEmptyString = (value: unknown): unknown | '' => value ?? '';
 
 const BaseUserSchema = object({
-  // id: number().int().positive(),
-  firstName: string('users.error.firstName.string').trim()
-    .nonempty('users.error.firstName.required'),
-  lastName: string('users.error.lastName.string').trim()
-    .nonempty('users.error.lastName.required'),
-  email:email('users.error.email.format'),
+  id: number('users.error.id.number')
+    .int('users.error.id.int')
+    .positive('users.error.id.positive'),
+  firstName: preprocess(
+    nullishToEmptyString,
+    string('users.error.firstName.string').trim()
+      .nonempty('users.error.firstName.required'),
+  ),
+  lastName: preprocess(
+    nullishToEmptyString,
+    string('users.error.lastName.string').trim()
+      .nonempty('users.error.lastName.required'),
+  ),
+  email: email('users.error.email.format'),
   phoneNumber: preprocess(
     emptyStringToUndefined,
     string('users.error.phoneNumber.string').trim()
@@ -36,19 +45,20 @@ const ViewerUserSchema = object({
   role: literal('viewer'),
 });
 
-export const UserEditSchema = discriminatedUnion('role', [
+const RoleUnion = discriminatedUnion('role', [
   AdminUserSchema,
   EditorUserSchema,
   ViewerUserSchema,
-]).and(BaseUserSchema)
-  .transform((o) => {
-    return {
-      ...o,
-      phoneNumber: emptyStringToUndefined(o.phoneNumber),
-      birthDate: emptyStringToUndefined(o.birthDate),
-    }
-  });
+], { error: 'users.error.role.value' });
+
+export const UserSchema = RoleUnion.and(BaseUserSchema);
+export const UserEditSchema = RoleUnion.and(BaseUserSchema.omit({ id: true }))
+  .transform((o) => ({
+    ...o,
+    phoneNumber: emptyStringToUndefined(o.phoneNumber),
+    birthDate: emptyStringToUndefined(o.birthDate),
+  }));
 
 
+export type User = zInfer<typeof UserSchema>;
 export type UserEdit = zInfer<typeof UserEditSchema>;
-export type User = UserEdit & { id: number };

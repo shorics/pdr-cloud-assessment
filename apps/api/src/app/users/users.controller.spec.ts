@@ -1,7 +1,7 @@
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserEdit } from '@pdr-cloud-assessment/shared';
 
-import { NotFoundException } from '@nestjs/common';
 import { EntityNotFoundException } from '../data/data.exceptions';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
@@ -16,10 +16,10 @@ describe('UsersController', () => {
       providers: [{
         provide: UsersService,
         useValue: {
-          findAll: jest.fn().mockReturnValue('fake-users-list'),
-          find: jest.fn().mockReturnValue('fake-user-find'),
-          create: jest.fn().mockReturnValue('fake-user-create'),
-          update: jest.fn().mockReturnValue('fake-user-update'),
+          findAll: jest.fn().mockResolvedValue('fake-users-list'),
+          find: jest.fn().mockResolvedValue('fake-user-find'),
+          create: jest.fn().mockResolvedValue('fake-user-create'),
+          update: jest.fn().mockResolvedValue('fake-user-update'),
           delete: jest.fn(),
         },
       }],
@@ -30,9 +30,9 @@ describe('UsersController', () => {
   });
 
   describe('#findAll', () => {
-    it('should return users array', () => {
+    it('should return users array', async () => {
 
-      const result = controller.findAll();
+      const result = await controller.findAll();
 
       expect(serviceMock.findAll).toHaveBeenCalledTimes(1);
       expect(result).toEqual('fake-users-list');
@@ -40,10 +40,10 @@ describe('UsersController', () => {
   });
 
   describe('#find', () => {
-    it('should return user', () => {
+    it('should return user', async () => {
       const id = 'fake-id' as unknown as number;
 
-      const result = controller.find(id);
+      const result = await controller.find(id);
 
       expect(serviceMock.find).toHaveBeenCalledTimes(1);
       expect(serviceMock.find).toHaveBeenCalledWith('fake-id');
@@ -62,7 +62,7 @@ describe('UsersController', () => {
 
         const result = () => controller.find(id);
 
-        expect(result).toThrow('test-error');
+        expect(result).rejects.toThrow('test-error');
       });
     });
 
@@ -78,16 +78,16 @@ describe('UsersController', () => {
 
         const result = () => controller.find(id);
 
-        expect(result).toThrow(NotFoundException);
+        expect(result).rejects.toThrow(NotFoundException);
       });
     });
   });
 
   describe('#create', () => {
-    it('should create user', () => {
+    it('should create user', async () => {
       const user = 'fake-user' as unknown as UserEdit;
 
-      const result = controller.create(user);
+      const result = await controller.create(user);
 
       expect(serviceMock.create).toHaveBeenCalledTimes(1);
       expect(serviceMock.create).toHaveBeenCalledWith('fake-user');
@@ -96,11 +96,11 @@ describe('UsersController', () => {
   });
 
   describe('#update', () => {
-    it('should update user', () => {
+    it('should update user', async () => {
       const id = 'fake-id' as unknown as number;
       const user = 'fake-user' as unknown as UserEdit;
 
-      const result = controller.update(id, user);
+      const result = await controller.update(id, user);
 
       expect(serviceMock.update).toHaveBeenCalledTimes(1);
       expect(serviceMock.update).toHaveBeenCalledWith('fake-id', 'fake-user');
@@ -120,7 +120,7 @@ describe('UsersController', () => {
 
         const result = () => controller.update(id, user);
 
-        expect(result).toThrow('test-error');
+        expect(result).rejects.toThrow('test-error');
       });
     });
 
@@ -137,16 +137,16 @@ describe('UsersController', () => {
 
         const result = () => controller.update(id, user);
 
-        expect(result).toThrow(NotFoundException);
+        expect(result).rejects.toThrow(NotFoundException);
       });
     });
   });
 
   describe('#delete', () => {
-    it('should delete user', () => {
+    it('should delete user', async () => {
       const id = 'fake-id' as unknown as number;
 
-      controller.delete(id);
+      await controller.delete(id);
 
       expect(serviceMock.delete).toHaveBeenCalledTimes(1);
       expect(serviceMock.delete).toHaveBeenCalledWith('fake-id');
@@ -164,7 +164,7 @@ describe('UsersController', () => {
 
         const result = () => controller.delete(id);
 
-        expect(result).toThrow('test-error');
+        expect(result).rejects.toThrow('test-error');
       });
     });
 
@@ -180,7 +180,7 @@ describe('UsersController', () => {
 
         const result = () => controller.delete(id);
 
-        expect(result).toThrow(NotFoundException);
+        expect(result).rejects.toThrow(NotFoundException);
       });
     });
   });
