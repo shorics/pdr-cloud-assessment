@@ -87,8 +87,8 @@ describe('UserTableFilter', () => {
       expect(element.textContent).toContain('fake-first-name');
       expect(element.textContent).toContain('fake-last-name');
       expect(element.textContent).toContain('fake-email');
-      expect(element.textContent).not.toContain('phoneNumber');
-      expect(element.textContent).not.toContain('birthDate');
+      expect(element.textContent).not.toContain('Phone Number');
+      expect(element.textContent).not.toContain('Date of Birth');
       expect(element.textContent).toContain('fake-role');
     });
 
@@ -148,9 +148,9 @@ describe('UserTableFilter', () => {
       expect(element.textContent).toContain('fake-first-name');
       expect(element.textContent).toContain('fake-last-name');
       expect(element.textContent).toContain('fake-email');
-      expect(element.textContent).toContain('phoneNumber');
+      expect(element.textContent).toContain('Phone Number');
       expect(element.textContent).toContain('fake-phone-number');
-      expect(element.textContent).not.toContain('birthDate');
+      expect(element.textContent).not.toContain('Date of Birth');
       expect(element.textContent).toContain('fake-role');
     });
   });
@@ -197,8 +197,8 @@ describe('UserTableFilter', () => {
       expect(element.textContent).toContain('fake-first-name');
       expect(element.textContent).toContain('fake-last-name');
       expect(element.textContent).toContain('fake-email');
-      expect(element.textContent).not.toContain('phoneNumber');
-      expect(element.textContent).toContain('birthDate');
+      expect(element.textContent).not.toContain('Phone Number');
+      expect(element.textContent).toContain('Date of Birth');
       expect(element.textContent).toContain('fake-birth-date');
       expect(element.textContent).toContain('fake-role');
     });
@@ -247,9 +247,9 @@ describe('UserTableFilter', () => {
       expect(element.textContent).toContain('fake-first-name');
       expect(element.textContent).toContain('fake-last-name');
       expect(element.textContent).toContain('fake-email');
-      expect(element.textContent).toContain('phoneNumber');
+      expect(element.textContent).toContain('Phone Number');
       expect(element.textContent).toContain('fake-phone-number');
-      expect(element.textContent).toContain('birthDate');
+      expect(element.textContent).toContain('Date of Birth');
       expect(element.textContent).toContain('fake-birth-date');
       expect(element.textContent).toContain('fake-role');
     });

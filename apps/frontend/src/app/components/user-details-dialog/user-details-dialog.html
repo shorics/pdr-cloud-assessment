@@ -1,26 +1,26 @@
 <h2 mat-dialog-title>User Details</h2>
 
 <mat-dialog-content>
-  <h3>fullName</h3>
+  <h3>Full Name</h3>
   <p>{{ `${user.firstName} ${user.lastName}` }}</p>
 
-  <h3>email</h3>
+  <h3>Email</h3>
   <p>{{ user.email }}</p>
 
   @if (user.phoneNumber) {
-    <h3>phoneNumber</h3>
+    <h3>Phone Number</h3>
     <p>{{ user.phoneNumber }}</p>
   }
-  
+
   @if (user.birthDate) {
-    <h3>birthDate</h3>
+    <h3>Date of Birth</h3>
     <p>{{ user.birthDate }}</p>
   }
 
-  <h3>role</h3>
+  <h3>Role</h3>
   <p>{{ user.role }}</p>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button matButton="filled" (click)="onCloseClick()">close</button>
+  <button matButton="filled" (click)="onCloseClick()">Close</button>
 </mat-dialog-actions>

@@ -29,7 +29,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.id?.errors[0];
         }
 
-        expect(message).toBe('users.error.id.number');
+        expect(message).toBe('ID must be number');
       });
     });
 
@@ -47,7 +47,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.id?.errors[0];
         }
 
-        expect(message).toBe('users.error.id.int');
+        expect(message).toBe('ID must be integer');
       });
     });
 
@@ -65,7 +65,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.id?.errors[0];
         }
 
-        expect(message).toBe('users.error.id.positive');
+        expect(message).toBe('ID must be positive');
       });
     });
 
@@ -83,7 +83,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.firstName?.errors[0];
         }
 
-        expect(message).toBe('users.error.firstName.string');
+        expect(message).toBe('First name must be string');
       });
     });
 
@@ -101,7 +101,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.firstName?.errors[0];
         }
 
-        expect(message).toBe('users.error.firstName.required');
+        expect(message).toBe('First name is required');
       });
     });
 
@@ -119,7 +119,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.lastName?.errors[0];
         }
 
-        expect(message).toBe('users.error.lastName.string');
+        expect(message).toBe('Last name must be string');
       });
     });
 
@@ -137,7 +137,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.lastName?.errors[0];
         }
 
-        expect(message).toBe('users.error.lastName.required');
+        expect(message).toBe('Last name is required');
       });
     });
 
@@ -155,7 +155,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.email?.errors[0];
         }
 
-        expect(message).toBe('users.error.email.format');
+        expect(message).toBe('Email format is invalid');
       });
     });
 
@@ -173,7 +173,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
         }
 
-        expect(message).toBe('users.error.phoneNumber.string');
+        expect(message).toBe('Phone number must be string');
       });
     });
 
@@ -191,7 +191,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
         }
 
-        expect(message).toBe('users.error.phoneNumber.required');
+        expect(message).toBe('Phone number is required');
       });
     });
 
@@ -209,7 +209,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.birthDate?.errors[0];
         }
 
-        expect(message).toBe('users.error.birthDate.format');
+        expect(message).toBe('Date of birth format is invalid');
       });
     });
 
@@ -227,7 +227,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.role?.errors[0];
         }
 
-        expect(message).toBe('users.error.role.value');
+        expect(message).toBe('Role is invalid');
       });
     });
 
@@ -245,7 +245,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.role?.errors[0];
         }
 
-        expect(message).toBe('users.error.role.value');
+        expect(message).toBe('Role is invalid');
       });
     });
 
@@ -260,9 +260,9 @@ describe('user.schema', () => {
 
         expect(result.error?.issues.length).toBe(2);
         expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
-        expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
+        expect(result.error?.issues[0].message).toBe('Phone number is required');
         expect(result.error?.issues[1].path[0]).toBe('birthDate');
-        expect(result.error?.issues[1].message).toBe('users.error.birthDate.required');
+        expect(result.error?.issues[1].message).toBe('Date of birth is required');
       });
 
       describe('with phone number', () => {
@@ -276,7 +276,7 @@ describe('user.schema', () => {
 
           expect(result.error?.issues.length).toBe(1);
           expect(result.error?.issues[0].path[0]).toBe('birthDate');
-          expect(result.error?.issues[0].message).toBe('users.error.birthDate.required');
+          expect(result.error?.issues[0].message).toBe('Date of birth is required');
         });
 
         describe('with birth date', () => {
@@ -313,7 +313,7 @@ describe('user.schema', () => {
 
         expect(result.error?.issues.length).toBe(1);
         expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
-        expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
+        expect(result.error?.issues[0].message).toBe('Phone number is required');
       });
 
       describe('with phone number', () => {
@@ -380,7 +380,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.firstName?.errors[0];
         }
 
-        expect(message).toBe('users.error.firstName.string');
+        expect(message).toBe('First name must be string');
       });
     });
 
@@ -398,7 +398,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.firstName?.errors[0];
         }
 
-        expect(message).toBe('users.error.firstName.required');
+        expect(message).toBe('First name is required');
       });
     });
 
@@ -416,7 +416,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.lastName?.errors[0];
         }
 
-        expect(message).toBe('users.error.lastName.string');
+        expect(message).toBe('Last name must be string');
       });
     });
 
@@ -434,7 +434,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.lastName?.errors[0];
         }
 
-        expect(message).toBe('users.error.lastName.required');
+        expect(message).toBe('Last name is required');
       });
     });
 
@@ -452,7 +452,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.email?.errors[0];
         }
 
-        expect(message).toBe('users.error.email.format');
+        expect(message).toBe('Email format is invalid');
       });
     });
 
@@ -470,7 +470,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
         }
 
-        expect(message).toBe('users.error.phoneNumber.string');
+        expect(message).toBe('Phone number must be string');
       });
     });
 
@@ -488,7 +488,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
         }
 
-        expect(message).toBe('users.error.phoneNumber.required');
+        expect(message).toBe('Phone number is required');
       });
     });
 
@@ -506,7 +506,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.birthDate?.errors[0];
         }
 
-        expect(message).toBe('users.error.birthDate.format');
+        expect(message).toBe('Date of birth format is invalid');
       });
     });
 
@@ -524,7 +524,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.role?.errors[0];
         }
 
-        expect(message).toBe('users.error.role.value');
+        expect(message).toBe('Role is invalid');
       });
     });
 
@@ -542,7 +542,7 @@ describe('user.schema', () => {
           message = treeifyError(result.error).properties?.role?.errors[0];
         }
 
-        expect(message).toBe('users.error.role.value');
+        expect(message).toBe('Role is invalid');
       });
     });
 
@@ -557,9 +557,9 @@ describe('user.schema', () => {
 
         expect(result.error?.issues.length).toBe(2);
         expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
-        expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
+        expect(result.error?.issues[0].message).toBe('Phone number is required');
         expect(result.error?.issues[1].path[0]).toBe('birthDate');
-        expect(result.error?.issues[1].message).toBe('users.error.birthDate.required');
+        expect(result.error?.issues[1].message).toBe('Date of birth is required');
       });
 
       describe('with phone number', () => {
@@ -573,7 +573,7 @@ describe('user.schema', () => {
 
           expect(result.error?.issues.length).toBe(1);
           expect(result.error?.issues[0].path[0]).toBe('birthDate');
-          expect(result.error?.issues[0].message).toBe('users.error.birthDate.required');
+          expect(result.error?.issues[0].message).toBe('Date of birth is required');
         });
 
         describe('with birth date', () => {
@@ -609,7 +609,7 @@ describe('user.schema', () => {
 
         expect(result.error?.issues.length).toBe(1);
         expect(result.error?.issues[0].path[0]).toBe('phoneNumber');
-        expect(result.error?.issues[0].message).toBe('users.error.phoneNumber.required');
+        expect(result.error?.issues[0].message).toBe('Phone number is required');
       });
 
       describe('with phone number', () => {

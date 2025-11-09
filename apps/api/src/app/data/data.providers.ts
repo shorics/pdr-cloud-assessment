@@ -1,5 +1,6 @@
 import path from 'path';
 
+import { Logger } from '@nestjs/common';
 import { DataUsersService } from './data-users.service';
 import { loadUsersFile, saveJsonFile } from './data-users.utils';
 
@@ -12,8 +13,13 @@ export const dataProviders = [
 
       const result = await loadUsersFile(filePath);
 
+      if (result.unparsableList.length) {
+        await saveJsonFile(unparsablePath, result.unparsableList);
+
+        Logger.warn(`Unparsable users found. Saved to ${unparsablePath}`);
+      }
+
       await saveJsonFile(filePath, result.userList);
-      await saveJsonFile(unparsablePath, result.unparsableList);
 
       return new DataUsersService(result.userList, filePath);
     },

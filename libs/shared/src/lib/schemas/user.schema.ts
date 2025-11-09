@@ -4,40 +4,40 @@ const emptyStringToUndefined = (value: string | undefined): string | undefined =
 const nullishToEmptyString = (value: unknown): unknown | '' => value ?? '';
 
 const BaseUserSchema = object({
-  id: number('users.error.id.number')
-    .int('users.error.id.int')
-    .positive('users.error.id.positive'),
+  id: number('ID must be number')
+    .int('ID must be integer')
+    .positive('ID must be positive'),
   firstName: preprocess(
     nullishToEmptyString,
-    string('users.error.firstName.string').trim()
-      .nonempty('users.error.firstName.required'),
+    string('First name must be string').trim()
+      .nonempty('First name is required'),
   ),
   lastName: preprocess(
     nullishToEmptyString,
-    string('users.error.lastName.string').trim()
-      .nonempty('users.error.lastName.required'),
+    string('Last name must be string').trim()
+      .nonempty('Last name is required'),
   ),
-  email: email('users.error.email.format'),
+  email: email('Email format is invalid'),
   phoneNumber: preprocess(
     emptyStringToUndefined,
-    string('users.error.phoneNumber.string').trim()
-      .nonempty('users.error.phoneNumber.required')
+    string('Phone number must be string').trim()
+      .nonempty('Phone number is required')
       .optional()
     ),
   birthDate: preprocess(
     emptyStringToUndefined,
-    iso.date('users.error.birthDate.format').optional(),
+    iso.date('Date of birth format is invalid').optional(),
   ),
 });
 
 const AdminUserSchema = object({
-  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('users.error.phoneNumber.required'),
-  birthDate: BaseUserSchema.shape.birthDate.nonoptional('users.error.birthDate.required'),
+  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('Phone number is required'),
+  birthDate: BaseUserSchema.shape.birthDate.nonoptional('Date of birth is required'),
   role: literal('admin'),
 });
 
 const EditorUserSchema = object({
-  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('users.error.phoneNumber.required'),
+  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('Phone number is required'),
   role: literal('editor'),
 });
 
@@ -49,7 +49,7 @@ const RoleUnion = discriminatedUnion('role', [
   AdminUserSchema,
   EditorUserSchema,
   ViewerUserSchema,
-], { error: 'users.error.role.value' });
+], { error: 'Role is invalid' });
 
 export const UserSchema = RoleUnion.and(BaseUserSchema);
 export const UserEditSchema = RoleUnion.and(BaseUserSchema.omit({ id: true }))

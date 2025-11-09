@@ -3,7 +3,7 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="form">
     <mat-form-field>
-      <mat-label>firstName</mat-label>
+      <mat-label>First Name</mat-label>
       <input matInput [formControl]="userForm.controls.firstName" />
 
       <mat-error>
@@ -12,7 +12,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>lastName</mat-label>
+      <mat-label>Last Name</mat-label>
       <input matInput [formControl]="userForm.controls.lastName" />
 
       <mat-error>
@@ -21,7 +21,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>email</mat-label>
+      <mat-label>Email</mat-label>
       <input matInput [formControl]="userForm.controls.email" />
 
       <mat-error>
@@ -30,7 +30,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>phoneNumber</mat-label>
+      <mat-label>Phone Number</mat-label>
       <input matInput [formControl]="userForm.controls.phoneNumber" />
 
       <mat-error>
@@ -39,7 +39,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>birthDate</mat-label>
+      <mat-label>Date of Birth</mat-label>
       <input matInput [formControl]="userForm.controls.birthDate" />
 
       <mat-hint>YYYY-MM-DD</mat-hint>
@@ -50,7 +50,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>role</mat-label>
+      <mat-label>Role</mat-label>
       <mat-select [formControl]="userForm.controls.role">
         <mat-option value="admin">admin</mat-option>
         <mat-option value="editor">editor</mat-option>
