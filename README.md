@@ -11,7 +11,7 @@
 ### Backing up invalid `User` entities
 
 - cleans inital data
-- allows administrator to review invalid entities
+- allows administrator to review invalid entities (`users-unparsable.json`)
 
 ### In-memory queue for saving
 
