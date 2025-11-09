@@ -4,6 +4,10 @@
 
 ## Backend
 
+### Fastify
+
+- better performance: "fastify is much faster than Express, achieving almost two times better benchmarks results"
+
 ### REST API
 
 - common pattern with defined actions for HTTP verbs
