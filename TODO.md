@@ -12,9 +12,9 @@
 - [ ] logging
 - [x] add unit tests for frontend -> > 70%
 - [ ] add e2e tests for frontend
-- [ ] use fastify
+- [x] use fastify
 - [ ] handle load errors
 - [x] trackBy for mat table
 - [ ] add empty state
-- [ ] use swc for BE?
+- [x] use swc for BE
 - [x] add translations or make app EN -> only EN

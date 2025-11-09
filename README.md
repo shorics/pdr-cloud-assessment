@@ -4,6 +4,14 @@
 
 ## Backend
 
+### SWC
+
+- better build times: "SWC is approximately x20 times faster than the default TypeScript compiler."
+
+### Fastify
+
+- better runtime performance: "fastify is much faster than Express, achieving almost two times better benchmarks results"
+
 ### REST API
 
 - common pattern with defined actions for HTTP verbs
