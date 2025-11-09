@@ -1,6 +1,6 @@
 # PdrCloudAssessment
 
-# Architectur
+# Architecture
 
 ## Backend
 
@@ -19,9 +19,17 @@
 
 ## Frontend
 
+### local fonts
+
+- privacy concerns on google hosting
+
 ### views and dumb components
 
 - the frontend components are split into views (logic) and dumb (presentation) components
+
+### unit tests with host components
+
+- to test "real" behavior of components
 
 ### state management
 
@@ -37,7 +45,7 @@
   - store is only available on component level or on root
   - needs to be root provided to be available in e. g. resolvers
   - if store is root then every dependency of store also needs to be available in root e. g. `UserService`
-  - effects cannot put into separate file because type safeness is nearly impossible
+  - effects cannot be put into separate files because type safeness is nearly impossible
   - events are experimental but the only way to get redux pattern back
 
 ### pagination and filtering done in frontend
@@ -48,8 +56,7 @@
 ### user details are fetched even they are in store
 
 - to comply with the requirements of the assesment
-- also it is possible with this solution to reduce the amount of data of the user model in the list and fetch the
-  complete entity when full details are requested
+- also it would be possible with this solution to reduce the amount of data of the user model in the list and fetch the complete entity when full details are requested
 
 ### filter by indexOf() instead of Regex
 
@@ -59,7 +66,7 @@
 
 ### Using Zod discriminatedUnion
 
-- better type safeness
+- better type safeness for `User` type
 - requirements of assessment not clear. Hint states discriminatedUnion is allowed
 
 # Limitations
