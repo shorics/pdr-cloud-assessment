@@ -5,7 +5,6 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-user-table-filter',
   templateUrl: './user-table-filter.html',
-  styleUrl: './user-table-filter.scss',
   imports: [MatFormFieldModule, MatInputModule],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

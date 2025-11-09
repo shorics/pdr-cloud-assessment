@@ -1,26 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { UserEdit, UserEditSchema } from '@pdr-cloud-assessment/shared';
-import { zodValidator } from '../../validators/zod.validator';
 
-export const MY_DATE_FORMATS = {
-    parse: {
-      dateInput: 'DD/MM/YYYY',
-    },
-    display: {
-      dateInput: 'DD/MM/YYYY',
-      monthYearLabel: 'MMMM YYYY',
-      dateA11yLabel: 'LL',
-      monthYearA11yLabel: 'MMMM YYYY'
-    },
-};
+import { zodValidator } from '../../validators/zod.validator';
 
 @Component({
   selector: 'app-user-create-dialog',
@@ -34,11 +22,6 @@ export const MY_DATE_FORMATS = {
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule
-  ],
-  providers: [
-    provideNativeDateAdapter(MY_DATE_FORMATS),
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    { provide: MAT_NATIVE_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +39,8 @@ export class UseCreateDialog {
   }, { validators: zodValidator(UserEditSchema) });
 
   protected onSubmit(): void {
+    this.userForm.updateValueAndValidity({ emitEvent: false });
+
     if (this.userForm.invalid) {
       return;
     }
