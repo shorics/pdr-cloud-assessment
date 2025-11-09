@@ -16,5 +16,5 @@
 - [ ] handle load errors
 - [x] trackBy for mat table
 - [ ] add empty state
-- [ ] use swc for BE?
+- [x] use swc for BE
 - [x] add translations or make app EN -> only EN
