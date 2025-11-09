@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="userList()">
+<table mat-table [dataSource]="userList()" [trackBy]="trackBy">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>id</th>
     <td mat-cell *matCellDef="let user">{{ user.id }}</td>

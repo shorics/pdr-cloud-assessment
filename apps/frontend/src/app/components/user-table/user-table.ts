@@ -20,4 +20,8 @@ export class UserTable {
   protected onRowClick(user: User): void {
     this.userSelected.emit(user.id);
   }
+
+  protected trackBy(_: number, user: User): User['id'] {
+    return user.id;
+  }
 }
