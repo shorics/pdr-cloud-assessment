@@ -10,9 +10,9 @@
 
     <mat-paginator
       #paginator
-      [length]="userListFiltered()?.length"
+      [length]="userListLength()"
       [pageSize]="PAGE_SIZE"
-      [pageIndex]="pageIndex()"
+      [pageIndex]="userPageIndex()"
       [hidePageSize]="true"
       (page)="onPageChange($event)"
     >
@@ -21,7 +21,7 @@
 
   <div class="table">
     <app-user-table
-      [userList]="userListFilteredPaginated() ?? []"
+      [userList]="userList() ?? []"
       (userSelected)="onUserSelect($event)"
     ></app-user-table>
   </div>
