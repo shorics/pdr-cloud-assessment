@@ -58,7 +58,7 @@ export class UserList {
       } else if (LoadingState.Done === state) {
         this.openSnackBar('saved');
       }
-    })
+    });
   }
 
   protected onFilterChange(value: string | undefined): void {
