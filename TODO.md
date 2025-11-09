@@ -1,8 +1,8 @@
 # TODO
 
 - [ ] regex for phone number / phone validation
-- [ ] test role property of schema
-- [ ] add tests UserSchema
+- [x] test role property of schema
+- [x] add tests UserSchema
 - [ ] add scope tags
 - [x] handle invalid entities from source set
 - [x] find alternative to reset page index in FE on filter change effect
