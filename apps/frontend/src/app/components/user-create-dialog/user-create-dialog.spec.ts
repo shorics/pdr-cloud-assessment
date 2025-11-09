@@ -82,49 +82,42 @@ describe('UserTableFilter', () => {
 
   it('should render first name field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'firstName' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'First Name' }));
 
       expect(result).toBeTruthy();
   });
 
   it('should render last name field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'lastName' }));
-
-      expect(result).toBeTruthy();
-  });
-
-  it('should render last name field', async () => {
-
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'lastName' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Last Name' }));
 
       expect(result).toBeTruthy();
   });
 
   it('should render email field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'email' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Email' }));
 
       expect(result).toBeTruthy();
   });
 
   it('should render phoneNumber field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'phoneNumber' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Phone Number' }));
 
       expect(result).toBeTruthy();
   });
 
   it('should render birthDate field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'birthDate' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Date of Birth' }));
 
       expect(result).toBeTruthy();
   });
 
   it('should render role field', async () => {
 
-      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'role' }));
+      const result = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Role' }));
 
       expect(result).toBeTruthy();
   });
@@ -145,19 +138,19 @@ describe('UserTableFilter', () => {
 
   describe('with data', () => {
     beforeEach(async () => {
-      const firstName = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'firstName' }));
+      const firstName = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'First Name' }));
       await ((await firstName.getControl()) as MatInputHarness)?.setValue('test-first-name');
 
-      const lastName = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'lastName' }));
+      const lastName = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Last Name' }));
       await ((await lastName.getControl()) as MatInputHarness)?.setValue('test-last-name');
 
-      const email = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'email' }));
+      const email = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Email' }));
       await ((await email.getControl()) as MatInputHarness)?.setValue('test-email');
 
-      const phoneNumber = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'phoneNumber' }));
+      const phoneNumber = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Phone Number' }));
       await ((await phoneNumber.getControl()) as MatInputHarness)?.setValue('test-phone-number');
 
-      const birthDate = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'birthDate' }));
+      const birthDate = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Date of Birth' }));
       await ((await birthDate.getControl()) as MatInputHarness)?.setValue('test-birth-date');
 
       // FIXME: Not working. Even the example component is throwing errors. Vitest/jsdom problem?

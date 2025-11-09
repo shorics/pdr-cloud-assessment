@@ -193,7 +193,7 @@ describe('UserTableFilter', () => {
 
     describe('with user create clicked', () => {
       beforeEach(async () => {
-        const button = await loader.getHarness(MatButtonHarness);
+        const button = await loader.getHarness(MatButtonHarness.with({ text: 'Create User' }));
 
         await button.click();
       });
@@ -219,7 +219,7 @@ describe('UserTableFilter', () => {
 
     describe('with user create clicked', () => {
       beforeEach(async () => {
-        const button = await loader.getHarness(MatButtonHarness);
+        const button = await loader.getHarness(MatButtonHarness.with({ text: 'Create User' }));
 
         await button.click();
       });

@@ -10,11 +10,11 @@
 - [x] add parsing of entities in FE
 - [ ] create dedicated data-users service provider factory and test it
 - [ ] logging
-- [ ] add unit tests for frontend
+- [x] add unit tests for frontend -> > 70%
 - [ ] add e2e tests for frontend
 - [ ] use fastify
 - [ ] handle load errors
 - [x] trackBy for mat table
 - [ ] add empty state
 - [ ] use swc for BE?
-- [ ] add translations or make app EN
+- [x] add translations or make app EN -> only EN
