@@ -5,7 +5,7 @@
 - [ ] add tests UserSchema
 - [ ] add scope tags
 - [x] handle invalid entities from source set
-- [ ] find alternative to reset page index in FE on filter change effect -> bad practice
+- [x] find alternative to reset page index in FE on filter change effect
 - [x] move filter into state
 - [ ] add parsing of entities in FE
 - [ ] create dedicated data-users service provider factory and test it
@@ -13,5 +13,6 @@
 - [ ] add tests for frontend
 - [ ] use fastify
 - [ ] handle load errors
-- [ ] trackBy for mat table
+- [x] trackBy for mat table
 - [ ] check ngrx-toolkit
+- [ ] add empty state
