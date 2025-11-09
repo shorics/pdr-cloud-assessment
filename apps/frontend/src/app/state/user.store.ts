@@ -81,7 +81,7 @@ export const UserStore = signalStore(
             service.loadUser(id).pipe(
               mapResponse({
                 next: (user) => userEvents.loadUserSuccess(user),
-                error: (error: { message: string }) => userEvents.loadUserFailure(error.message),
+                error: (error: Error) => userEvents.loadUserFailure(error.message),
               }),
             ),
           ),
@@ -94,7 +94,7 @@ export const UserStore = signalStore(
             service.loadUserList().pipe(
               mapResponse({
                 next: (users) => userEvents.loadUserListSuccess(users),
-                error: (error: { message: string }) => userEvents.loadUserListFailure(error.message),
+                error: (error: Error) => userEvents.loadUserListFailure(error.message),
               }),
             ),
           ),
@@ -107,7 +107,7 @@ export const UserStore = signalStore(
             service.createUser(user).pipe(
               mapResponse({
                 next: (user) => userEvents.createUserSuccess(user),
-                error: (error: { message: string }) => userEvents.createUserFailure(error.message),
+                error: (error: Error) => userEvents.createUserFailure(error.message),
               }),
             ),
           ),
