@@ -1,26 +1,24 @@
-@let entity = user();
-
 <h2 mat-dialog-title>User Details</h2>
 
 <mat-dialog-content>
   <h3>fullName</h3>
-  <p>{{ `${entity.firstName} ${entity.lastName}` }}</p>
+  <p>{{ `${user.firstName} ${user.lastName}` }}</p>
 
   <h3>email</h3>
-  <p>{{ entity.email }}</p>
+  <p>{{ user.email }}</p>
 
-  @if (entity.phoneNumber) {
+  @if (user.phoneNumber) {
     <h3>phoneNumber</h3>
-    <p>{{ entity.phoneNumber }}</p>
+    <p>{{ user.phoneNumber }}</p>
   }
   
-  @if (entity.birthDate) {
+  @if (user.birthDate) {
     <h3>birthDate</h3>
-    <p>{{ entity.birthDate }}</p>
+    <p>{{ user.birthDate }}</p>
   }
 
   <h3>role</h3>
-  <p>{{ entity.role }}</p>
+  <p>{{ user.role }}</p>
 </mat-dialog-content>
 
 <mat-dialog-actions>
