@@ -16,5 +16,8 @@ export const userEvents = eventGroup({
     createUser: type<UserEdit>(),
     createUserSuccess: type<User>(),
     createUserFailure: type<string>(),
+
+    setUserFilter: type<string | undefined>(),
+    setUserPageIndex: type<number>(),
   },
 });

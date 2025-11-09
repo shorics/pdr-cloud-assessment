@@ -1,10 +1,11 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { mapResponse } from '@ngrx/operators';
-import { signalStore, withState } from '@ngrx/signals';
+import { signalStore, withComputed, withState } from '@ngrx/signals';
 import { Events, on, withEffects, withReducer } from '@ngrx/signals/events';
 import { User } from '@pdr-cloud-assessment/shared';
 import { map, switchMap } from 'rxjs';
 
+import { PAGE_SIZE } from '../app.constants';
 import { LoadingState } from '../enums/loading-state.enum';
 import { Loadable } from '../interfaces/loadable.interface';
 import { UserService } from '../services/user.service';
@@ -14,12 +15,16 @@ export type UserState = {
   user: Loadable<User>;
   userList: Loadable<User[]>;
   userCreate: Loadable<User>;
+  userFilter: string | undefined;
+  userPageIndex: number;
 };
 
 export const initialState: UserState = {
   user: { state: LoadingState.Initial, data: undefined },
   userList: { state: LoadingState.Initial, data: [] },
   userCreate: { state: LoadingState.Initial, data: undefined },
+  userFilter: undefined,
+  userPageIndex: 0,
 };
 
 export const UserStore = signalStore(
@@ -36,7 +41,37 @@ export const UserStore = signalStore(
     on(userEvents.createUser, () => ({ userCreate: { state: LoadingState.Loading, data: undefined } })),
     on(userEvents.createUserSuccess, ({ payload: user }) => ({ userCreate: { state: LoadingState.Done, data: user } })),
     on(userEvents.createUserFailure, ({ payload: error }) => ({ userCreate: { state: LoadingState.Error, data: undefined, error } })),
+
+    on(userEvents.setUserFilter, ({ payload: userFilter }) => ({ userFilter })),
+    on(userEvents.setUserPageIndex, ({ payload: userPageIndex }) => ({ userPageIndex })),
   ),
+  withComputed(({ userList, userFilter }) => ({
+    userListFiltered: computed(() => {
+      const list = userList().data;
+      const filterLower = userFilter()?.toLowerCase();
+
+      if (!filterLower || !list) {
+        return list;
+      }
+
+      return list?.filter((user) => {
+        const fullName = `${user.firstName} ${user.lastName}`;
+
+        return -1 !== fullName.toLowerCase().indexOf(filterLower);
+      });
+    }),
+    userListLength: computed(() => userList().data?.length ?? 0)
+  })),
+  withComputed(({ userListFiltered, userPageIndex }) => ({
+    userListFilteredPaginated: computed(() => {
+      const list = userListFiltered();
+      const pageIndex = userPageIndex();
+      const startIndex = pageIndex * PAGE_SIZE;
+      const endIndex = startIndex + PAGE_SIZE;
+
+      return list?.slice(startIndex, endIndex);
+    }),
+  })),
   withEffects(
     (_, events = inject(Events), service = inject(UserService)) => ({
       loadUser$: events
@@ -82,6 +117,12 @@ export const UserStore = signalStore(
         .on(userEvents.createUserSuccess)
         .pipe(
           map(() => userEvents.loadUserList()),
+        ),
+
+      setUserFilter$: events
+        .on(userEvents.setUserFilter)
+        .pipe(
+          map(() => userEvents.setUserPageIndex(0)),
         ),
     }),
   ),
