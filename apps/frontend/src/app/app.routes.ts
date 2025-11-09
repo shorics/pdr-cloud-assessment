@@ -9,4 +9,8 @@ export const appRoutes: Route[] = [
     providers: [UserService],
     component: UserList,
   },
+  {
+    path: '**',
+    redirectTo: '',
+  }
 ];

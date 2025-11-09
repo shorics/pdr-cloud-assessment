@@ -1,8 +1,9 @@
 /// <reference types='vitest' />
-import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
-import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
+import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
+import { defineConfig } from 'vite';
+import { coverageConfigDefaults } from 'vitest/config';
 
 export default defineConfig(() => ({
   root: __dirname,
@@ -23,6 +24,7 @@ export default defineConfig(() => ({
     coverage: {
       reportsDirectory: '../../coverage/apps/frontend',
       provider: 'v8' as const,
+      exclude: ['**/*.mock.ts', '**/*.interface.ts', ...coverageConfigDefaults.exclude],
     },
   },
 }));

@@ -1,7 +1,7 @@
 import { AbstractControl, isFormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { flattenError, ZodType } from 'zod';
 
-export function zodValidator(schema: ZodType<unknown, unknown>): ValidatorFn {
+export function zodValidator<T extends ZodType>(schema: T): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const result = schema.safeParse(control.value);
 

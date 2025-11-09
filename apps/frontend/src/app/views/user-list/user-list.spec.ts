@@ -2,16 +2,16 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { By } from '@angular/platform-browser';
 import { Dispatcher } from '@ngrx/signals/events';
-import { MockedObject } from 'vitest';
-
-import { MatButtonHarness } from '@angular/material/button/testing';
 import { UserEdit } from '@pdr-cloud-assessment/shared';
 import { of } from 'rxjs';
+import { MockedObject } from 'vitest';
+
 import { PAGE_SIZE } from '../../app.constants';
 import { UseCreateDialog } from '../../components/user-create-dialog/user-create-dialog';
 import { UserDetailsDialog } from '../../components/user-details-dialog/user-details-dialog';
