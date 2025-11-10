@@ -71,6 +71,7 @@
 ### fastify
 
 - better runtime performance: "fastify is much faster than Express, achieving almost two times better benchmarks results"
+- no express middlewares in use
 
 ### REST API
 
