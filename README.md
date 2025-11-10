@@ -130,6 +130,11 @@
 
 - string operations are faster
 
+### Setting errors on indvidual form controls in `UseCreateDialog#setErrors`
+
+- to use error state features of angular material form elements
+- nice user experience
+
 ### Integration tests with mocked API instead of e2e
 
 - to reduce complexity
