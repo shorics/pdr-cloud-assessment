@@ -11,10 +11,10 @@
 - [ ] create dedicated data-users service provider factory and test it
 - [ ] logging
 - [x] add unit tests for frontend -> > 70%
-- [ ] add e2e tests for frontend
+- [x] add e2e tests for frontend -> only happy path
 - [x] use fastify
 - [ ] handle load errors
 - [x] trackBy for mat table
-- [ ] add empty state
+- [x] add empty state -> skipped
 - [x] use swc for BE
 - [x] add translations or make app EN -> only EN

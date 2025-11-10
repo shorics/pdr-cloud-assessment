@@ -54,9 +54,9 @@ export class UserList {
       const { error, state } = userCreate;
 
       if (LoadingState.Error === state) {
-        this.openSnackBar(error ?? 'error');
+        this.openSnackBar(error ?? 'Error');
       } else if (LoadingState.Done === state) {
-        this.openSnackBar('saved');
+        this.openSnackBar('Saved');
       }
     });
   }
