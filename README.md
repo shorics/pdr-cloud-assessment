@@ -8,7 +8,7 @@
 
 - better build times: "SWC is approximately x20 times faster than the default TypeScript compiler."
 
-### Fastify
+### fastify
 
 - better runtime performance: "fastify is much faster than Express, achieving almost two times better benchmarks results"
 
@@ -31,15 +31,15 @@
 
 - privacy concerns on google hosting
 
-### views and dumb components
+### Views and dumb components
 
 - the frontend components are split into views (logic) and dumb (presentation) components
 
-### unit tests with host components
+### Unit tests with host components
 
 - to test "real" behavior of components
 
-### state management
+### State management
 
 - to have a single, extendable source for the data of the frontend
 - preferable with a pattern like redux to have a common, understandable design in place
@@ -55,19 +55,23 @@
   - effects cannot be put into separate files because type safeness is nearly impossible
   - events are experimental but **the only way to get redux pattern back**
 
-### pagination and filtering done in frontend
+### Pagination and filtering done in frontend
 
 - to reduce complexity of the task
 - database pretty small
 
-### user details are fetched even they are in store
+### User details are fetched even they are in store
 
 - to comply with the requirements of the assesment
 - also it would be possible with this solution to reduce the amount of data of the user model in the list and fetch the complete entity when full details are requested
 
-### filter by indexOf() instead of Regex
+### Filter by indexOf() instead of Regex
 
 - string operations are faster
+
+### Integration tests with mocked API instead of e2e
+
+- to reduce complexity
 
 ## Shared
 
