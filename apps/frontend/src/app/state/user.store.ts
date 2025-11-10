@@ -60,7 +60,6 @@ export const UserStore = signalStore(
         return -1 !== fullName.toLowerCase().indexOf(filterLower);
       });
     }),
-    userListLength: computed(() => userList().data?.length ?? 0)
   })),
   withComputed(({ userListFiltered, userPageIndex }) => ({
     userListFilteredPaginated: computed(() => {
@@ -71,6 +70,9 @@ export const UserStore = signalStore(
 
       return list?.slice(startIndex, endIndex);
     }),
+  })),
+  withComputed(({ userListFiltered }) => ({
+    userListLength: computed(() => userListFiltered()?.length ?? 0),
   })),
   withEffects(
     (_, events = inject(Events), service = inject(UserService)) => ({

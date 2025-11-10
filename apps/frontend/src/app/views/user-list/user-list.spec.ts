@@ -247,7 +247,7 @@ describe('UserTableFilter', () => {
 
     it('should open snack bar', () => {
 
-      expect(snackBar.open).toHaveBeenCalledExactlyOnceWith('saved', undefined, { duration: 3000 });
+      expect(snackBar.open).toHaveBeenCalledExactlyOnceWith('Saved', undefined, { duration: 3000 });
     });
   });
 
