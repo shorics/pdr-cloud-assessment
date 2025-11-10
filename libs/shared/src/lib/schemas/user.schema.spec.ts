@@ -2,6 +2,16 @@ import { treeifyError } from 'zod';
 
 import { User, UserEditSchema, UserSchema } from './user.schema';
 
+
+// UserEditSchema.parse({
+//           id: 123,
+//         firstName: 'fake-first-name',
+//         lastName: 'fake-last-name',
+//         email:'fake@email.test',
+//         role: 'editor',
+//         phoneNumber: '',
+// });
+
 describe('user.schema', () => {
   let user: Partial<User>;
 
@@ -195,6 +205,24 @@ describe('user.schema', () => {
       });
     });
 
+    describe('with incorrect phone number', () => {
+      beforeEach(() => {
+        user.phoneNumber = 'invalid-phone-number';
+      });
+
+      it('should fail with format phone number', () => {
+
+        const result = UserSchema.safeParse(user);
+
+        let message;
+        if (result.error) {
+          message = treeifyError(result.error).properties?.phoneNumber?.errors[0];
+        }
+
+        expect(message).toBe('Phone number format is invalid');
+      });
+    });
+
     describe('with incorrect birth date', () => {
       beforeEach(() => {
         user.birthDate = 'fake-birth-date';
@@ -267,7 +295,7 @@ describe('user.schema', () => {
 
       describe('with phone number', () => {
         beforeEach(() => {
-          user.phoneNumber = 'fake-phone-number';
+          user.phoneNumber = '+1-000-000-0000';
         });
 
         it('should fail with required birth date', () => {
@@ -293,7 +321,7 @@ describe('user.schema', () => {
               firstName: 'fake-first-name',
               lastName: 'fake-last-name',
               email:'fake@email.test',
-              phoneNumber: 'fake-phone-number',
+              phoneNumber: '+1-000-000-0000',
               birthDate: '2025-12-24',
               role: 'admin',
             });
@@ -318,7 +346,7 @@ describe('user.schema', () => {
 
       describe('with phone number', () => {
         beforeEach(() => {
-          user.phoneNumber = 'fake-phone-number';
+          user.phoneNumber = '+1-000-000-0000';
         });
 
         it('should parse', () => {
@@ -330,7 +358,7 @@ describe('user.schema', () => {
             firstName: 'fake-first-name',
             lastName: 'fake-last-name',
             email:'fake@email.test',
-            phoneNumber: 'fake-phone-number',
+            phoneNumber: '+1-000-000-0000',
             role: 'editor',
           });
         });
@@ -564,7 +592,7 @@ describe('user.schema', () => {
 
       describe('with phone number', () => {
         beforeEach(() => {
-          user.phoneNumber = 'fake-phone-number';
+          user.phoneNumber = '+1-000-000-0000';
         });
 
         it('should fail with required birth date', () => {
@@ -589,7 +617,7 @@ describe('user.schema', () => {
               firstName: 'fake-first-name',
               lastName: 'fake-last-name',
               email:'fake@email.test',
-              phoneNumber: 'fake-phone-number',
+              phoneNumber: '+1-000-000-0000',
               birthDate: '2025-12-24',
               role: 'admin',
             });
@@ -614,7 +642,7 @@ describe('user.schema', () => {
 
       describe('with phone number', () => {
         beforeEach(() => {
-          user.phoneNumber = 'fake-phone-number';
+          user.phoneNumber = '+1-000-000-0000';
         });
 
         it('should parse', () => {
@@ -625,7 +653,7 @@ describe('user.schema', () => {
             firstName: 'fake-first-name',
             lastName: 'fake-last-name',
             email:'fake@email.test',
-            phoneNumber: 'fake-phone-number',
+            phoneNumber: '+1-000-000-0000',
             role: 'editor',
           });
         });

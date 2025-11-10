@@ -16,7 +16,7 @@ export const dataProviders = [
       if (result.unparsableList.length) {
         await saveJsonFile(unparsablePath, result.unparsableList);
 
-        Logger.warn(`Unparsable users found. Saved to ${unparsablePath}`);
+        Logger.warn(`Found ${result.unparsableList.length} unparsable users. Saved to ${unparsablePath}`);
       }
 
       await saveJsonFile(filePath, result.userList);
