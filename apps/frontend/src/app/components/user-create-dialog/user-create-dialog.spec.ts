@@ -3,6 +3,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonHarness } from '@angular/material/button/testing';
+import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldHarness } from '@angular/material/form-field/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
@@ -10,7 +11,6 @@ import { By } from '@angular/platform-browser';
 import { UserEditSchema as _UserEditSchema } from '@pdr-cloud-assessment/shared';
 import { Mock, MockedObject } from 'vitest';
 
-import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { UseCreateDialog } from './user-create-dialog';
 
 const mocks = vi.hoisted(() => ({
@@ -22,12 +22,16 @@ vi.mock('../../validators/zod.validator', () => ({
 }));
 
 vi.mock('@pdr-cloud-assessment/shared', () => ({
-  UserEditSchema:{
+  UserEditSchema: {
     parse: vi.fn().mockReturnValue('fake-user'),
   },
 }));
 
 const UserEditSchemaParseMock = _UserEditSchema.parse as unknown as Mock;
+
+vi.mock('zod', () => ({
+  flattenError: vi.fn().mockReturnValue({ fieldErrors: undefined }),
+}));
 
 @Component({
   template: `<app-user-create-dialog></app-user-create-dialog>`,
@@ -45,7 +49,10 @@ describe('UserTableFilter', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestHost],
-      providers: [{provide: MATERIAL_ANIMATIONS, useValue: {animationsDisabled: true}}],
+      providers: [{
+        provide: MATERIAL_ANIMATIONS,
+        useValue: { animationsDisabled: true }
+      }],
     })
     .overrideComponent(UseCreateDialog, {
       add: {
@@ -67,8 +74,9 @@ describe('UserTableFilter', () => {
     dialogRefMock = fixture.debugElement.query(By.directive(UseCreateDialog)).injector
       .get(MatDialogRef) as MockedObject<MatDialogRef<UseCreateDialog>>;
 
-      fixture.detectChanges();
-      loader = TestbedHarnessEnvironment.loader(fixture);
+    loader = TestbedHarnessEnvironment.loader(fixture);
+
+    fixture.detectChanges();
   });
 
   afterEach(() => {
@@ -153,7 +161,7 @@ describe('UserTableFilter', () => {
       const birthDate = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Date of Birth' }));
       await ((await birthDate.getControl()) as MatInputHarness)?.setValue('test-birth-date');
 
-      // FIXME: Not working. Even the example component is throwing errors. Vitest/jsdom problem?
+      // FIXME: Not working. Even the example component from the documentation is throwing errors. Vitest/jsdom problem?
       // const role = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'role' }));
       // const roleControl = await (await role.getControl() as MatSelectHarness);
       // await roleControl.open();
@@ -189,8 +197,8 @@ describe('UserTableFilter', () => {
   });
 
   describe('with form invalid', () => {
-    beforeEach(async () => {
-      mocks.zodValidatorInnerMock.mockReturnValue({ fakeError: 'fakeMessage' });
+    beforeEach(() => {
+      mocks.zodValidatorInnerMock.mockReturnValue({ zodError: 'fake-error' });
     });
 
     describe('with submit button clicked', () => {

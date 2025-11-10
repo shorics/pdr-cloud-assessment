@@ -73,6 +73,26 @@ test.describe('[User List] User Create Dialog', () => {
 
         await expect(page.getByText('Saved')).toBeVisible();
       });
+
+      test('should show error', async ({ page }) => {
+
+        await page.getByLabel('First Name').fill(' ');
+        await page.getByLabel('Last Name').fill(' ');
+        await page.getByLabel('Email').fill(' ');
+        await page.getByLabel('Phone Number').fill(' ');
+        await page.getByLabel('Date of Birth').fill(' ');
+        await page.getByLabel('Role').click();
+        await page.getByLabel('Role').locator('mat-option:has-text("admin")').click();
+
+        await page.getByRole('button', { name: 'Save' }).click();
+
+        await expect(page.getByText('First name is required')).toBeVisible();
+        await expect(page.getByText('Last name is required')).toBeVisible();
+        await expect(page.getByText('Email format is invalid')).toBeVisible();
+        await expect(page.getByText('Phone number is required')).toBeVisible();
+        await expect(page.getByText('Phone number is required')).toBeVisible();
+        await expect(page.getByText('Date of birth format is invalid')).toBeVisible();
+      });
     });
   });
 });

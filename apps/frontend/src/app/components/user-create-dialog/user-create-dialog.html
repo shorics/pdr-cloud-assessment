@@ -7,7 +7,7 @@
       <input matInput [formControl]="userForm.controls.firstName" />
 
       <mat-error>
-        {{ userForm.controls.firstName.errors?.['zodError'] }}
+        {{ userForm.controls.firstName.errors?.['userForm'] }}
       </mat-error>
     </mat-form-field>
 
@@ -16,7 +16,7 @@
       <input matInput [formControl]="userForm.controls.lastName" />
 
       <mat-error>
-        {{ userForm.controls.lastName.errors?.['zodError'] }}
+        {{ userForm.controls.lastName.errors?.['userForm'] }}
       </mat-error>
     </mat-form-field>
 
@@ -25,7 +25,7 @@
       <input matInput [formControl]="userForm.controls.email" />
 
       <mat-error>
-        {{ userForm.controls.email.errors?.['zodError'] }}
+        {{ userForm.controls.email.errors?.['userForm'] }}
       </mat-error>
     </mat-form-field>
 
@@ -34,7 +34,7 @@
       <input matInput [formControl]="userForm.controls.phoneNumber" />
 
       <mat-error>
-        {{ userForm.controls.phoneNumber.errors?.['zodError'] }}
+        {{ userForm.controls.phoneNumber.errors?.['userForm'] }}
       </mat-error>
     </mat-form-field>
 
@@ -45,7 +45,7 @@
       <mat-hint>YYYY-MM-DD</mat-hint>
 
       <mat-error>
-        {{ userForm.controls.birthDate.errors?.['zodError'] }}
+        {{ userForm.controls.birthDate.errors?.['userForm'] }}
       </mat-error>
     </mat-form-field>
 
@@ -57,12 +57,14 @@
         <mat-option value="viewer">viewer</mat-option>
       </mat-select>
 
-      <mat-error> {{ userForm.controls.role.errors?.['zodError'] }} </mat-error>
+      <mat-error> {{ userForm.controls.role.errors?.['userForm'] }} </mat-error>
     </mat-form-field>
   </mat-dialog-content>
 
   <mat-dialog-actions>
     <button matButton type="button" (click)="onCloseClick()">Cancel</button>
-    <button matButton="filled" type="submit">Save</button>
+    <button matButton="filled" type="submit" [disabled]="!userForm.dirty">
+      Save
+    </button>
   </mat-dialog-actions>
 </form>
