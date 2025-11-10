@@ -136,10 +136,9 @@
 
 ## Shared
 
-### Using Zod discriminatedUnion
+### Why not omitting id in schema instead adding it?
 
-- better type safeness for `User` type
-- requirements of assessment not clear. Hint states discriminatedUnion is allowed
+- omitting properties after `.superRefine` will lead to non-functional schema
 
 # Limitations
 

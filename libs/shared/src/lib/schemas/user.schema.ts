@@ -1,12 +1,18 @@
-import { discriminatedUnion, email, iso, literal, number, object, preprocess, string, infer as zInfer } from 'zod';
+import parsePhoneNumber from 'libphonenumber-js';
+import { custom, email, iso, number, object, preprocess, string, enum as zEnum, infer as zInfer } from 'zod';
 
 const emptyStringToUndefined = (value: string | undefined): string | undefined => '' === value ? undefined : value;
 const nullishToEmptyString = (value: unknown): unknown | '' => value ?? '';
 
+const phoneNumber = (error = '') => custom<string>((value) => {
+  if (typeof value === 'string') {
+    return !!parsePhoneNumber(value, 'US');
+  }
+
+  return false;
+}, error);
+
 const BaseUserSchema = object({
-  id: number('ID must be number')
-    .int('ID must be integer')
-    .positive('ID must be positive'),
   firstName: preprocess(
     nullishToEmptyString,
     string('First name must be string').trim()
@@ -22,43 +28,51 @@ const BaseUserSchema = object({
     emptyStringToUndefined,
     string('Phone number must be string').trim()
       .nonempty('Phone number is required')
+      .and(phoneNumber('Phone number format is invalid'))
       .optional()
     ),
   birthDate: preprocess(
     emptyStringToUndefined,
     iso.date('Date of birth format is invalid').optional(),
   ),
+  role: zEnum(['admin', 'editor', 'viewer'], { error: 'Role is invalid' }),
+})
+.superRefine((val, ctx) => {
+  if ('admin' === val.role || 'editor' === val.role) {
+    if (undefined === val.phoneNumber) {
+      ctx.addIssue({
+        code: 'invalid_type',
+        expected: 'nonoptional',
+        message: 'Phone number is required',
+        path: ['phoneNumber'],
+        input: val,
+      });
+    }
+  }
+
+  if ('admin' === val.role) {
+    if (undefined === val.birthDate) {
+      ctx.addIssue({
+        code: 'invalid_type',
+        expected: 'nonoptional',
+        message: 'Date of birth is required',
+        path: ['birthDate'],
+        input: val,
+      });
+    }
+  }
 });
 
-const AdminUserSchema = object({
-  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('Phone number is required'),
-  birthDate: BaseUserSchema.shape.birthDate.nonoptional('Date of birth is required'),
-  role: literal('admin'),
-});
-
-const EditorUserSchema = object({
-  phoneNumber: BaseUserSchema.shape.phoneNumber.nonoptional('Phone number is required'),
-  role: literal('editor'),
-});
-
-const ViewerUserSchema = object({
-  role: literal('viewer'),
-});
-
-const RoleUnion = discriminatedUnion('role', [
-  AdminUserSchema,
-  EditorUserSchema,
-  ViewerUserSchema,
-], { error: 'Role is invalid' });
-
-export const UserSchema = RoleUnion.and(BaseUserSchema);
-export const UserEditSchema = RoleUnion.and(BaseUserSchema.omit({ id: true }))
-  .transform((o) => ({
-    ...o,
-    phoneNumber: emptyStringToUndefined(o.phoneNumber),
-    birthDate: emptyStringToUndefined(o.birthDate),
-  }));
-
+export const UserSchema = BaseUserSchema.and(object({
+  id: number('ID must be number')
+    .int('ID must be integer')
+    .positive('ID must be positive'),
+}));
+export const UserEditSchema = BaseUserSchema.transform((o) => ({
+  ...o,
+  phoneNumber: emptyStringToUndefined(o.phoneNumber),
+  birthDate: emptyStringToUndefined(o.birthDate),
+}));
 
 export type User = zInfer<typeof UserSchema>;
 export type UserEdit = zInfer<typeof UserEditSchema>;
