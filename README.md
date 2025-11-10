@@ -110,7 +110,8 @@
 - on the other hand handling combinations of Observables and Signals can sometimes be tedious
 - wouldn't use signal version **with events** again (for now)
   - union types are not correctly supported in state
-  - store needs to be injected even if not used to make events available
+  - no mocked store provided for unit tests
+  - store needs to be injected even if not used just to make events available
   - injecting store multiple times leads to runnning effects multiple times
   - effects cannot be put into separate files because type safeness is nearly impossible
   - events are experimental but **the only way to get redux pattern back**
