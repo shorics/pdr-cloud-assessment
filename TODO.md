@@ -8,12 +8,12 @@
 - [x] find alternative to reset page index in FE on filter change effect
 - [x] move filter into state
 - [x] add parsing of entities in FE
-- [ ] create dedicated data-users service provider factory and test it
-- [ ] logging
+- [x] create dedicated data-users service provider factory and test it -> skipped
+- [x] logging -> skipped
 - [x] add unit tests for frontend -> > 70%
 - [x] add e2e tests for frontend -> only happy path
 - [x] use fastify
-- [ ] handle load errors
+- [x] handle load errors -> skipped
 - [x] trackBy for mat table
 - [x] add empty state -> skipped
 - [x] use swc for BE

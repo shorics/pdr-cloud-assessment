@@ -15,7 +15,6 @@ async function bootstrap() {
       origin: ['http://localhost:4200'],
     },
     logger: new ConsoleLogger({
-      colors: true,
       json: true,
     }),
   });
