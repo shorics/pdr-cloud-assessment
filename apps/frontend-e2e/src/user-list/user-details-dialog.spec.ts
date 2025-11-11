@@ -57,6 +57,16 @@ test.describe('[User List] User Details Dialog', () => {
 
     test.describe('with dialog open', () => {
       test.beforeEach(async ({ page }) => {
+        await page.route('*/**/users/15', async route => {
+          await route.fulfill({
+            json: {
+              ...userJson,
+              id: 15,
+              lastName: `${userJson.lastName} 15`
+            },
+          });
+        });
+
         await page.getByRole('row', { name: 'firstName lastName 15' }).click();
       });
 
