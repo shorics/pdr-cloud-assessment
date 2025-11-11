@@ -6,7 +6,7 @@ describe('users', () => {
         firstName: 'test-first-name-1',
         lastName: 'test-last-name-1',
         email: 'test-1@email.test',
-        phoneNumber: 'test-phone-number-1',
+        phoneNumber: '+1-000-000-0001',
         birthDate: '2025-12-24',
         role: 'admin',
       };
@@ -25,7 +25,7 @@ describe('users', () => {
         firstName: 'test-first-name-1',
         lastName: 'test-last-name-1',
         email: 'test-1@email.test',
-        phoneNumber: 'test-phone-number-1',
+        phoneNumber: '+1-000-000-0001',
         birthDate: '2025-12-24',
         role: 'admin',
       }]));
@@ -50,7 +50,7 @@ describe('users', () => {
           firstName: 'test-first-name-1',
           lastName: 'test-last-name-1',
           email: 'test-1@email.test',
-          phoneNumber: 'test-phone-number-1',
+          phoneNumber: '+1-000-000-0001',
           birthDate: '2025-12-24',
           role: 'admin',
         });
@@ -77,7 +77,7 @@ describe('users', () => {
         firstName: 'test-first-name-2',
         lastName: 'test-last-name-2',
         email: 'test-2@email.test',
-        phoneNumber: 'test-phone-number-2',
+        phoneNumber: '+1-000-000-0002',
         birthDate: '2025-01-01',
         role: 'viewer',
       };
@@ -91,7 +91,7 @@ describe('users', () => {
         firstName: 'test-first-name-2',
         lastName: 'test-last-name-2',
         email: 'test-2@email.test',
-        phoneNumber: 'test-phone-number-2',
+        phoneNumber: '+1-000-000-0002',
         birthDate: '2025-01-01',
         role: 'viewer',
       });
@@ -102,7 +102,7 @@ describe('users', () => {
           firstName: 'test-first-name-1',
           lastName: 'test-last-name-1',
           email: 'test-1@email.test',
-          phoneNumber: 'test-phone-number-1',
+          phoneNumber: '+1-000-000-0001',
           birthDate: '2025-12-24',
           role: 'admin',
         },
@@ -111,7 +111,7 @@ describe('users', () => {
           firstName: 'test-first-name-2',
           lastName: 'test-last-name-2',
           email: 'test-2@email.test',
-          phoneNumber: 'test-phone-number-2',
+          phoneNumber: '+1-000-000-0002',
           birthDate: '2025-01-01',
           role: 'viewer',
         }
@@ -132,7 +132,7 @@ describe('users', () => {
           firstName: 'test-first-name-1-updated',
           lastName: 'test-last-name-1-updated',
           email: 'test-1-updated@email.test',
-          phoneNumber: 'test-phone-number-1-updated',
+          phoneNumber: '+1-000-000-0003',
           birthDate: '2025-06-06',
           role: 'editor',
         };
@@ -146,7 +146,7 @@ describe('users', () => {
           firstName: 'test-first-name-1-updated',
           lastName: 'test-last-name-1-updated',
           email: 'test-1-updated@email.test',
-          phoneNumber: 'test-phone-number-1-updated',
+          phoneNumber: '+1-000-000-0003',
           birthDate: '2025-06-06',
           role: 'editor',
         });
@@ -156,7 +156,7 @@ describe('users', () => {
           firstName: 'test-first-name-1-updated',
           lastName: 'test-last-name-1-updated',
           email: 'test-1-updated@email.test',
-          phoneNumber: 'test-phone-number-1-updated',
+          phoneNumber: '+1-000-000-0003',
           birthDate: '2025-06-06',
           role: 'editor',
         }]));
@@ -173,7 +173,7 @@ describe('users', () => {
           firstName: 'test-first-name-1-updated',
           lastName: 'test-last-name-1-updated',
           email: 'test-1-updated@email.test',
-          phoneNumber: 'test-phone-number-1-updated',
+          phoneNumber: '+1-000-000-0003',
           birthDate: '2025-06-06',
           role: 'editor',
         };
@@ -206,7 +206,7 @@ describe('users', () => {
           firstName: 'test-first-name-1',
           lastName: 'test-last-name-1',
           email: 'test-1@email.test',
-          phoneNumber: 'test-phone-number-1',
+          phoneNumber: '+1-000-000-0001',
           birthDate: '2025-12-24',
           role: 'admin',
         }]));
