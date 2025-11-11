@@ -44,7 +44,7 @@ test.describe('[User List] User Details Dialog', () => {
 
       const phoneNumber = page.getByRole('heading', { name: 'Phone Number' })
         .locator('//following-sibling::*[1]');
-      await expect(phoneNumber).toHaveText('123');
+      await expect(phoneNumber).toHaveText('+1-000-000-0000');
 
       const birthDate = page.getByRole('heading', { name: 'Date of Birth' })
         .locator('//following-sibling::*[1]');
@@ -57,6 +57,16 @@ test.describe('[User List] User Details Dialog', () => {
 
     test.describe('with dialog open', () => {
       test.beforeEach(async ({ page }) => {
+        await page.route('*/**/users/15', async route => {
+          await route.fulfill({
+            json: {
+              ...userJson,
+              id: 15,
+              lastName: `${userJson.lastName} 15`
+            },
+          });
+        });
+
         await page.getByRole('row', { name: 'firstName lastName 15' }).click();
       });
 
