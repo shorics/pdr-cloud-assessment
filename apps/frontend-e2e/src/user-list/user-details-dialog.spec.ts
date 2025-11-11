@@ -44,7 +44,7 @@ test.describe('[User List] User Details Dialog', () => {
 
       const phoneNumber = page.getByRole('heading', { name: 'Phone Number' })
         .locator('//following-sibling::*[1]');
-      await expect(phoneNumber).toHaveText('123');
+      await expect(phoneNumber).toHaveText('+1-000-000-0000');
 
       const birthDate = page.getByRole('heading', { name: 'Date of Birth' })
         .locator('//following-sibling::*[1]');
