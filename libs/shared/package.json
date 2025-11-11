@@ -5,7 +5,8 @@
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "dependencies": {
+  "peerDependencies": {
+    "libphonenumber-js": "^1.12.26",
     "zod": "^4.1.12"
   }
 }
